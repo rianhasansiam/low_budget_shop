@@ -67,3 +67,40 @@ export const useFilters = () => {
   const { colors, badges, loading, error, hasFetched } = useAppSelector((state) => state.filters);
   return { colors, badges, loading, error, hasFetched };
 };
+
+// Custom hook to get all orders from Redux
+export const useOrders = () => {
+  const ordersState = useAppSelector((state) => state.orders);
+  return { 
+    orders: ordersState?.items || [], 
+    loading: ordersState?.loading || false, 
+    error: ordersState?.error || null, 
+    hasFetched: ordersState?.hasFetched || false, 
+    pagination: ordersState?.pagination || null 
+  };
+};
+
+// Custom hook to get a single order by ID from Redux
+export const useOrderById = (id: string) => {
+  const ordersState = useAppSelector((state) => state.orders);
+  const items = ordersState?.items || [];
+  const order = useMemo(() => items.find((o) => o._id === id), [items, id]);
+  return { order, loading: ordersState?.loading || false, error: ordersState?.error || null };
+};
+
+// Custom hook to get orders by status from Redux
+export const useOrdersByStatus = (status: string) => {
+  const ordersState = useAppSelector((state) => state.orders);
+  const items = ordersState?.items || [];
+  const orders = useMemo(
+    () => items.filter((o) => o.status === status),
+    [items, status]
+  );
+  return { orders, loading: ordersState?.loading || false, error: ordersState?.error || null };
+};
+
+// Custom hook to get selected order from Redux
+export const useSelectedOrder = () => {
+  const ordersState = useAppSelector((state) => state.orders);
+  return { selectedOrder: ordersState?.selectedOrder || null };
+};

@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+      },
     ],
     // Enable image optimization for better performance
     formats: ["image/avif", "image/webp"],

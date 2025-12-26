@@ -4,6 +4,7 @@ import productsReducer from './slices/productsSlice';
 import categoriesReducer from './slices/categoriesSlice';
 import filtersReducer from './slices/filtersSlice';
 import userReducer from './slices/userSlice';
+import ordersReducer from './slices/ordersSlice';
 
 export const makeStore = () => {
   return configureStore({
@@ -13,6 +14,7 @@ export const makeStore = () => {
       categories: categoriesReducer,
       filters: filtersReducer,
       user: userReducer,
+      orders: ordersReducer,
     },
   });
 };

@@ -91,29 +91,8 @@ export default function AdminPage() {
                 <p className="text-sm text-gray-500">Manage your {activeTab}</p>
               </div>
 
-              {/* Right Side */}
-              <div className="flex items-center gap-4">
-                {/* Search Bar */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-64 pl-9 pr-4 py-2 bg-gray-100 border-0 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all"
-                  />
-                </div>
-
-                {/* Notifications */}
-                <button className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
-                  <Bell className="w-5 h-5" />
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
-
-                {/* Settings */}
-                <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
-                  <Settings className="w-5 h-5" />
-                </button>
-              </div>
+           
+             
             </div>
           </div>
         </header>
