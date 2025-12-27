@@ -1,7 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { LayoutDashboard, Package, ShoppingCart, Users, Tag, Percent, Bell, Search, ChevronDown, LogOut, Settings } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingCart, Users, Tag, Percent, LogOut, Loader2, ShieldX } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import Dashboard from './components/Dashboard'
 import Products from './components/Products'
 import Orders from './components/Orders'
@@ -10,6 +13,13 @@ import Categories from './components/Categories'
 import Coupon from './components/Coupon'
 
 type TabType = 'dashboard' | 'products' | 'orders' | 'customers' | 'categories' | 'coupons'
+
+interface SessionUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role?: string;
+}
 
 const menuItems = [
   { id: 'dashboard' as TabType, label: 'Dashboard', icon: LayoutDashboard },
@@ -21,8 +31,79 @@ const menuItems = [
 ]
 
 export default function AdminPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>('dashboard')
 
+  const user = session?.user as SessionUser | undefined
+  const isAdmin = user?.role === 'admin'
+
+  // Loading state
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-10 h-10 animate-spin text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Not authenticated
+  if (status === 'unauthenticated') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <ShieldX className="w-8 h-8 text-red-500" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+          <p className="text-gray-500 mb-6">You need to sign in to access the admin panel.</p>
+          <button
+            onClick={() => router.push('/login')}
+            className="px-6 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Not admin
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <ShieldX className="w-8 h-8 text-amber-500" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Access Required</h1>
+          <p className="text-gray-500 mb-6">
+            You don&apos;t have permission to access the admin panel. 
+            This area is restricted to administrators only.
+          </p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={() => router.push('/')}
+              className="px-6 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Go Home
+            </button>
+            <button
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              className="px-6 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Admin user - show admin panel
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Left Sidebar */}
@@ -66,15 +147,33 @@ export default function AdminPage() {
 
         {/* Admin Profile */}
         <div className="p-4 border-t border-gray-800">
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-800 cursor-pointer transition-colors">
-            <div className="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">AD</span>
-            </div>
+          <div className="flex items-center gap-3 p-2 rounded-lg">
+            {user?.image ? (
+              <Image
+                src={user.image}
+                alt={user.name || 'Admin'}
+                width={36}
+                height={36}
+                className="rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center">
+                <span className="text-white font-semibold text-sm">
+                  {user?.name?.charAt(0).toUpperCase() || 'A'}
+                </span>
+              </div>
+            )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">Admin User</p>
-              <p className="text-xs text-gray-500 truncate">admin@digicam.com</p>
+              <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
             </div>
-            <LogOut className="w-4 h-4 text-gray-500 hover:text-red-400 cursor-pointer" />
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="p-1.5 hover:bg-gray-800 rounded transition-colors"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4 text-gray-500 hover:text-red-400" />
+            </button>
           </div>
         </div>
       </aside>
@@ -90,9 +189,11 @@ export default function AdminPage() {
                 <h1 className="text-xl font-bold text-gray-900 capitalize">{activeTab}</h1>
                 <p className="text-sm text-gray-500">Manage your {activeTab}</p>
               </div>
-
-           
-             
+              
+              {/* Admin Badge */}
+              <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">
+                Admin
+              </span>
             </div>
           </div>
         </header>

@@ -4,15 +4,14 @@ import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { SlidersHorizontal, Loader2 } from "lucide-react";
-import Head from "next/head";
 
 import ProductsGrid from "./components/ProductsGrid";
 
-import { Product } from "@/app/components/ProductCard";
 import { useProducts, useCategories, useFilters } from "@/lib/redux/hooks";
 import SortDropdown, { SortOption } from "./components/SortDropdown";
 import ActiveFilters from "./components/ActiveFilters";
 import FilterSidebar from "./components/FilterSidebar";
+import type { Product } from "@/app/components/ProductCard";
 
 const MAX_PRICE = 500000;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digicammarket.com";

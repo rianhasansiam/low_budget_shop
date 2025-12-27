@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Tag, Plus, Edit2, Trash2, X, Loader2, Upload, ImageIcon } from 'lucide-react'
-import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks'
+import { useAppDispatch } from '@/lib/redux/hooks'
+import { useCategories } from '@/lib/redux/hooks'
 import Swal from 'sweetalert2'
 import Image from 'next/image'
 import {
-  setCategories,
-  setCategoriesLoading,
-  setCategoriesError,
   addCategory as addCategoryAction,
   updateCategory as updateCategoryAction,
   deleteCategory as deleteCategoryAction,
@@ -36,27 +34,8 @@ const Categories = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const dispatch = useAppDispatch()
-  const { items: categories, loading, error, hasFetched } = useAppSelector(state => state.categories)
-
-  // Fetch categories from API
-  useEffect(() => {
-    const fetchCategories = async () => {
-      if (hasFetched) return
-      
-      dispatch(setCategoriesLoading(true))
-      try {
-        const response = await fetch('/api/categories')
-        if (!response.ok) throw new Error('Failed to fetch categories')
-        
-        const data = await response.json()
-        dispatch(setCategories(Array.isArray(data) ? data : []))
-      } catch (err) {
-        dispatch(setCategoriesError(err instanceof Error ? err.message : 'Failed to fetch categories'))
-      }
-    }
-
-    fetchCategories()
-  }, [dispatch, hasFetched])
+  // Use the useCategories hook - data is already fetched by DataProvider
+  const { categories, loading, error } = useCategories()
 
   // Handle image upload to ImgBB
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

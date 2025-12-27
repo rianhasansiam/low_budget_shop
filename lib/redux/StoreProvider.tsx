@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Provider } from 'react-redux';
 import { makeStore, AppStore } from './store';
 import DataProvider from './DataProvider';
+import StorageInitializer from './StorageInitializer';
 
 export default function StoreProvider({
   children,
@@ -15,6 +16,7 @@ export default function StoreProvider({
 
   return (
     <Provider store={store}>
+      <StorageInitializer />
       <DataProvider>{children}</DataProvider>
     </Provider>
   );

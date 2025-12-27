@@ -22,18 +22,20 @@ const Orders = () => {
   const [statusFilter, setStatusFilter] = useState<string>('')
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
 
   const dispatch = useAppDispatch()
-  const { orders, loading, error, pagination } = useOrders()
+  const { orders, loading, error, pagination, hasFetched } = useOrders()
 
-  // Fetch orders from API and store in Redux
+  // Fetch orders ONCE on mount - not on status filter change
   useEffect(() => {
+    // Skip if already fetched
+    if (hasFetched) return
+    
     const fetchOrders = async () => {
       dispatch(setOrdersLoading(true))
       try {
-        const url = `/api/orders${statusFilter ? `?status=${statusFilter}` : ''}`
-        const response = await fetch(url)
+        // Fetch ALL orders once, then filter client-side
+        const response = await fetch('/api/orders')
         if (!response.ok) throw new Error('Failed to fetch orders')
         
         const data = await response.json()
@@ -45,23 +47,31 @@ const Orders = () => {
     }
 
     fetchOrders()
-  }, [dispatch, statusFilter])
+  }, [dispatch, hasFetched])
 
-  // Filter orders based on search term (client-side filtering)
+  // Filter orders based on search term AND status filter (all client-side)
   const filteredOrders = useMemo(() => {
     if (!orders || !Array.isArray(orders)) return []
     return orders.filter(order => {
       if (!order) return false
+      
+      // Status filter
+      if (statusFilter && order.status !== statusFilter) return false
+      
+      // Search filter
       const searchLower = searchTerm.toLowerCase()
-      return (
-        (order._id && order._id.toLowerCase().includes(searchLower)) ||
-        (order.customer_name && order.customer_name.toLowerCase().includes(searchLower)) ||
-        (order.email && order.email.toLowerCase().includes(searchLower)) ||
-        (order.phone && order.phone.includes(searchTerm)) ||
-        (order.items && order.items.some(item => item?.name?.toLowerCase().includes(searchLower)))
-      )
+      if (searchLower) {
+        return (
+          (order._id && order._id.toLowerCase().includes(searchLower)) ||
+          (order.customer_name && order.customer_name.toLowerCase().includes(searchLower)) ||
+          (order.email && order.email.toLowerCase().includes(searchLower)) ||
+          (order.phone && order.phone.includes(searchTerm)) ||
+          (order.items && order.items.some(item => item?.name?.toLowerCase().includes(searchLower)))
+        )
+      }
+      return true
     })
-  }, [orders, searchTerm])
+  }, [orders, searchTerm, statusFilter])
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -156,7 +166,6 @@ const Orders = () => {
     })
     
     if (!result.isConfirmed) {
-      setDeleteConfirm(null)
       return
     }
     
@@ -170,7 +179,6 @@ const Orders = () => {
       // Update Redux store
       dispatch(deleteOrderAction(orderId))
       
-      setDeleteConfirm(null)
       if (selectedOrder?._id === orderId) {
         setIsModalOpen(false)
         setSelectedOrder(null)

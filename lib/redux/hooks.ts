@@ -104,3 +104,15 @@ export const useSelectedOrder = () => {
   const ordersState = useAppSelector((state) => state.orders);
   return { selectedOrder: ordersState?.selectedOrder || null };
 };
+
+// Custom hook to get wishlist from Redux
+export const useWishlist = () => {
+  const { items, totalItems } = useAppSelector((state) => state.wishlist);
+  return { items, totalItems };
+};
+
+// Custom hook to check if item is in wishlist
+export const useIsInWishlist = (id: string) => {
+  const { items } = useAppSelector((state) => state.wishlist);
+  return useMemo(() => items.some((item) => item.id === id), [items, id]);
+};

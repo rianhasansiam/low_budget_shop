@@ -1,6 +1,12 @@
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, Check } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { addToCart } from "@/lib/redux/slices/cartSlice";
+import { toggleWishlist } from "@/lib/redux/slices/wishlistSlice";
+import Swal from "sweetalert2";
 
 // Product type matching database schema
 export interface Product {
@@ -25,9 +31,75 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const dispatch = useAppDispatch();
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+  const isInWishlist = wishlistItems.some(item => item.id === product._id);
+  
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (product.stock === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Out of Stock',
+        text: 'This product is currently out of stock.',
+        confirmButtonColor: '#111827',
+        timer: 2000,
+        timerProgressBar: true
+      });
+      return;
+    }
+    
+    dispatch(addToCart({
+      id: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1
+    }));
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Added to Cart!',
+      text: `${product.name} has been added to your cart.`,
+      confirmButtonColor: '#111827',
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+  };
+
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    dispatch(toggleWishlist({
+      id: product._id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      category: product.category,
+      inStock: product.stock > 0
+    }));
+    
+    Swal.fire({
+      icon: isInWishlist ? 'info' : 'success',
+      title: isInWishlist ? 'Removed from Wishlist' : 'Added to Wishlist!',
+      text: isInWishlist 
+        ? `${product.name} has been removed from your wishlist.`
+        : `${product.name} has been added to your wishlist.`,
+      confirmButtonColor: '#111827',
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+  };
 
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
@@ -63,17 +135,28 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Quick Actions */}
         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-center gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
           <button
-            className="flex-1 bg-black text-white py-2.5 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
+            onClick={handleAddToCart}
+            disabled={product.stock === 0}
+            className={`flex-1 py-2.5 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors ${
+              product.stock === 0 
+                ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                : 'bg-black text-white hover:bg-gray-800'
+            }`}
             aria-label="Add to cart"
           >
             <ShoppingCart className="w-4 h-4" />
-            <span className="text-sm">Add to Cart</span>
+            <span className="text-sm">{product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}</span>
           </button>
           <button
-            className="p-2.5 bg-white rounded-xl shadow-md hover:bg-red-50 hover:text-red-500 transition-colors"
-            aria-label="Add to wishlist"
+            onClick={handleToggleWishlist}
+            className={`p-2.5 rounded-xl shadow-md transition-colors ${
+              isInWishlist 
+                ? 'bg-red-500 text-white hover:bg-red-600' 
+                : 'bg-white hover:bg-red-50 hover:text-red-500'
+            }`}
+            aria-label={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
           >
-            <Heart className="w-5 h-5" />
+            {isInWishlist ? <Check className="w-5 h-5" /> : <Heart className="w-5 h-5" />}
           </button>
         </div>
       </div>

@@ -1,15 +1,12 @@
 'use client'
 
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useMemo, useRef } from 'react'
 import { Search, Plus, Edit, Trash2, Eye, X, Loader2, Upload, Package, ImagePlus } from 'lucide-react'
 import Image from 'next/image'
 import Swal from 'sweetalert2'
 import { useAppDispatch } from '@/lib/redux/hooks'
 import { useProducts, useCategories } from '@/lib/redux/hooks'
 import {
-  setProducts,
-  setProductsLoading,
-  setProductsError,
   addProduct as addProductAction,
   updateProduct as updateProductAction,
   deleteProduct as deleteProductAction,
@@ -51,7 +48,6 @@ const Products = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [viewingProduct, setViewingProduct] = useState<Product | null>(null)
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
   const [formData, setFormData] = useState<ProductFormData>(initialFormData)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -210,39 +206,19 @@ const Products = () => {
     }))
   }
 
-  // Fetch products from API
-  useEffect(() => {
-    const fetchProducts = async () => {
-      dispatch(setProductsLoading(true))
-      try {
-        const url = `/api/products?limit=100${categoryFilter ? `&category=${categoryFilter}` : ''}`
-        const response = await fetch(url)
-        if (!response.ok) throw new Error('Failed to fetch products')
-        
-        const data = await response.json()
-        dispatch(setProducts(data))
-      } catch (err) {
-        dispatch(setProductsError(err instanceof Error ? err.message : 'Failed to fetch products'))
-      }
-    }
-
-    fetchProducts()
-  }, [dispatch, categoryFilter])
-
-  // Filter products based on search term
+  // Filter products based on search term and category filter (client-side)
   const filteredProducts = useMemo(() => {
-    return products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  }, [products, searchTerm])
-
-  // Get unique categories from products
-  const productCategories = useMemo(() => {
-    const cats = new Set(products.map(p => p.category))
-    return Array.from(cats)
-  }, [products])
+    return products.filter(product => {
+      const matchesSearch = 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      
+      const matchesCategory = !categoryFilter || product.category === categoryFilter
+      
+      return matchesSearch && matchesCategory
+    })
+  }, [products, searchTerm, categoryFilter])
 
   // Format currency
   const formatCurrency = (amount: number) => {
@@ -338,7 +314,7 @@ const Products = () => {
           throw new Error(errorData.error || 'Failed to update product')
         }
         
-        const result = await response.json()
+        await response.json()
         dispatch(updateProductAction({ 
           ...editingProduct, 
           ...productData, 
@@ -415,7 +391,6 @@ const Products = () => {
     })
     
     if (!result.isConfirmed) {
-      setDeleteConfirm(null)
       return
     }
     
@@ -430,7 +405,6 @@ const Products = () => {
       }
 
       dispatch(deleteProductAction(productId))
-      setDeleteConfirm(null)
       
       Swal.fire({
         icon: 'success',

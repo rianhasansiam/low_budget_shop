@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import StoreProvider from "@/lib/redux/StoreProvider";
 import QueryProvider from "@/lib/QueryProvider";
 import ConditionalLayout from "./components/ConditionalLayout";
+import AuthProvider from "@/lib/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -211,11 +212,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <StoreProvider>
-          <QueryProvider>
-            <ConditionalLayout>{children}</ConditionalLayout>
-          </QueryProvider>
-        </StoreProvider>
+        <AuthProvider>
+          <StoreProvider>
+            <QueryProvider>
+              <ConditionalLayout>{children}</ConditionalLayout>
+            </QueryProvider>
+          </StoreProvider>
+        </AuthProvider>
       </body>
     </html>
   );
