@@ -7,6 +7,7 @@ export interface OrderItem {
   quantity: number;
   unit_price: number;
   subtotal: number;
+  image?: string;
 }
 
 export interface ShippingAddress {

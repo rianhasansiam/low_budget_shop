@@ -179,7 +179,9 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
-        <div className="overflow-x-auto">
+        
+        {/* Desktop Table */}
+        <div className="hidden md:block overflow-x-auto">
           {recentOrders.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
               No orders yet
@@ -238,6 +240,39 @@ const Dashboard = () => {
                 ))}
               </tbody>
             </table>
+          )}
+        </div>
+        
+        {/* Mobile Cards */}
+        <div className="md:hidden p-4 space-y-3">
+          {recentOrders.length === 0 ? (
+            <div className="p-8 text-center text-gray-500">
+              No orders yet
+            </div>
+          ) : (
+            recentOrders.map((order) => (
+              <div key={order._id} className="p-4 bg-gray-50 rounded-xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-900">#{order._id.slice(-6).toUpperCase()}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${getStatusStyle(order.status)}`}>
+                    {order.status}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-500">
+                      {order.customer_name?.charAt(0) || '?'}
+                    </div>
+                    <span className="text-sm text-gray-600">{order.customer_name || 'Unknown'}</span>
+                  </div>
+                  <span className="text-sm font-semibold text-gray-900">{formatCurrency(order.total_amount || 0)}</span>
+                </div>
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <span>{order.items?.length || 0} item(s)</span>
+                  <span>{formatDate(order.order_date)}</span>
+                </div>
+              </div>
+            ))
           )}
         </div>
       </div>

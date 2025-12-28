@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { LayoutDashboard, Package, ShoppingCart, Users, Tag, Percent, LogOut, Loader2, ShieldX, Settings as SettingsIcon } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingCart, Users, Tag, Percent, LogOut, Loader2, ShieldX, Settings as SettingsIcon, Menu, X } from 'lucide-react'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -36,6 +36,7 @@ export default function AdminPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>('dashboard')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const user = session?.user as SessionUser | undefined
   const isAdmin = user?.role === 'admin'
@@ -108,10 +109,23 @@ export default function AdminPage() {
   // Admin user - show admin panel
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Left Sidebar */}
-      <aside className="w-64 bg-gray-900 flex flex-col fixed h-screen">
+      <aside className={`
+        w-64 bg-gray-900 flex flex-col fixed h-screen z-50
+        transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0
+      `}>
         {/* Logo */}
-        <div className="p-5 border-b border-gray-800">
+        <div className="p-5 border-b border-gray-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
               <span className="text-gray-900 font-bold text-lg">DC</span>
@@ -121,6 +135,13 @@ export default function AdminPage() {
               <p className="text-xs text-gray-400">Admin Panel</p>
             </div>
           </div>
+          {/* Close button for mobile */}
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-2 hover:bg-gray-800 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5 text-gray-400" />
+          </button>
         </div>
 
         {/* Navigation */}
@@ -132,7 +153,10 @@ export default function AdminPage() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveTab(item.id)}
+                  onClick={() => {
+                    setActiveTab(item.id)
+                    setSidebarOpen(false) // Close sidebar on mobile after selecting
+                  }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                     activeTab === item.id
                       ? 'bg-white text-gray-900'
@@ -181,15 +205,23 @@ export default function AdminPage() {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 ml-64">
+      <main className="flex-1 lg:ml-64">
         {/* Top Header */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="px-8 py-4">
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+          <div className="px-4 lg:px-8 py-4">
             <div className="flex items-center justify-between">
-              {/* Page Title */}
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 capitalize">{activeTab}</h1>
-                <p className="text-sm text-gray-500">Manage your {activeTab}</p>
+              {/* Mobile Menu Button & Page Title */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSidebarOpen(true)}
+                  className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <Menu className="w-5 h-5 text-gray-600" />
+                </button>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900 capitalize">{activeTab}</h1>
+                  <p className="text-sm text-gray-500 hidden sm:block">Manage your {activeTab}</p>
+                </div>
               </div>
               
               {/* Admin Badge */}
@@ -201,7 +233,7 @@ export default function AdminPage() {
         </header>
 
         {/* Content */}
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
           {activeTab === 'dashboard' && <Dashboard />}
           {activeTab === 'products' && <Products />}
           {activeTab === 'orders' && <Orders />}

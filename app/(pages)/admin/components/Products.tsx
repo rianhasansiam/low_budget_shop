@@ -449,7 +449,7 @@ const Products = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Products</h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -458,7 +458,7 @@ const Products = () => {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           Add Product
@@ -466,7 +466,7 @@ const Products = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
@@ -480,7 +480,7 @@ const Products = () => {
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-sm bg-white"
+          className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-sm bg-white w-full sm:w-auto"
         >
           <option value="">All Categories</option>
           {categories.map((cat) => (
@@ -491,8 +491,8 @@ const Products = () => {
         </select>
       </div>
 
-      {/* Products Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      {/* Products Table - Desktop */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
@@ -592,6 +592,85 @@ const Products = () => {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Products Cards - Mobile */}
+      <div className="md:hidden space-y-4">
+        {filteredProducts.length === 0 ? (
+          <div className="bg-white rounded-xl p-8 text-center text-gray-500">
+            No products found
+          </div>
+        ) : (
+          filteredProducts.map((product) => {
+            const stockStatus = getStockStatus(product.stock)
+            return (
+              <div key={product._id} className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                    {product.image ? (
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Package className="w-6 h-6 text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-medium text-gray-900 text-sm truncate">{product.name}</h3>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${stockStatus.style}`}>
+                        {stockStatus.label}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-0.5">{product.category}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-sm font-semibold text-gray-900">{formatCurrency(product.price)}</span>
+                      {product.originalPrice > product.price && (
+                        <span className="text-xs text-gray-400 line-through">
+                          {formatCurrency(product.originalPrice)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span>Stock: {product.stock}</span>
+                    {product.badge && (
+                      <span className="px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded">{product.badge}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => openViewModal(product)}
+                      className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => openEditModal(product)}
+                      className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    >
+                      <Edit className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          })
+        )}
       </div>
 
       {/* Add/Edit Product Modal */}
