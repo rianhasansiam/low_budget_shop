@@ -18,8 +18,16 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Helper function to ensure URL has protocol
+function ensureProtocol(url: string): string {
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return `https://${url}`;
+  }
+  return url;
+}
+
 // Base URL for the site (update this to your production URL)
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digicammarket.com";
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://low-budget.vercel.app");
 
 export const viewport: Viewport = {
   width: "device-width",

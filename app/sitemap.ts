@@ -1,7 +1,15 @@
 import { MetadataRoute } from 'next';
 import { getCollection } from '@/lib/mongodb';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://digicammarket.com';
+// Helper function to ensure URL has protocol
+function ensureProtocol(url: string): string {
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return `https://${url}`;
+  }
+  return url;
+}
+
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || 'https://low-budget.vercel.app');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
