@@ -458,13 +458,7 @@ export default function CartPage() {
                   <Shield className="w-5 h-5" />
                   <span className="text-sm">Secure Checkout</span>
                 </div>
-                <div className="flex items-center justify-center gap-3 mt-4">
-                  {['Visa', 'MC', 'Amex', 'PayPal'].map((card) => (
-                    <div key={card} className="px-3 py-1 bg-gray-50 rounded text-xs font-medium text-gray-500">
-                      {card}
-                    </div>
-                  ))}
-                </div>
+               
               </div>
 
               {/* Free Shipping Progress */}
