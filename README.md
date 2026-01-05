@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BlackBerry - Premium Tech Gadgets E-Commerce
 
-## Getting Started
+A modern, full-featured e-commerce platform for tech gadgets and electronics built with Next.js 16, React 19, and MongoDB.
 
-First, run the development server:
+🌐 **Live Demo:** [bberrybd.com](https://bberrybd.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![BlackBerry E-Commerce](public/og-image.jpg)
+
+## ✨ Features
+
+### 🛍️ Shopping Experience
+- **Product Catalog** - Browse smartphones, laptops, smartwatches, earbuds & more
+- **Advanced Filtering** - Filter by category, price range, colors, and badges
+- **Product Search** - Real-time search across all products
+- **Wishlist** - Save favorite items for later
+- **Shopping Cart** - Persistent cart with quantity management
+- **Responsive Design** - Optimized for mobile, tablet, and desktop
+
+### 👤 User Features
+- **Authentication** - Email/password and Google OAuth login
+- **User Profiles** - Manage account details and preferences
+- **Order History** - Track all past orders
+- **Secure Checkout** - Multi-step checkout with address management
+
+### 🔧 Admin Panel
+- **Dashboard** - Sales analytics and overview
+- **Product Management** - Add, edit, delete products with image upload
+- **Category Management** - Organize products by categories
+- **Order Management** - View and update order status
+- **Customer Management** - View and manage users
+- **Coupon System** - Create and manage discount coupons
+- **Settings** - Configure shipping, store settings
+
+### ⚡ Performance & SEO
+- **Smart Caching** - React Query with configurable cache times
+- **Redux State** - Centralized state management
+- **SEO Optimized** - Meta tags, Open Graph, structured data
+- **Sitemap** - Auto-generated sitemap for search engines
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **Frontend** | React 19, TypeScript |
+| **Styling** | Tailwind CSS 4 |
+| **State Management** | Redux Toolkit, React Query |
+| **Database** | MongoDB |
+| **Authentication** | NextAuth.js |
+| **Animations** | Framer Motion |
+| **Icons** | Lucide React |
+| **Image Upload** | ImgBB API |
+| **Notifications** | SweetAlert2 |
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- MongoDB database
+- ImgBB API key (for image uploads)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/blackberry-ecommerce.git
+   cd blackberry-ecommerce
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   
+   Create a `.env.local` file:
+   ```env
+   # MongoDB
+   MONGODB_URI=your_mongodb_connection_string
+   MONGODB_DB_NAME=blackberry_ecommerce
+
+   # NextAuth
+   NEXTAUTH_SECRET=your_nextauth_secret
+   NEXTAUTH_URL=http://localhost:3000
+
+   # Google OAuth (optional)
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+   # ImgBB (for image uploads)
+   NEXT_PUBLIC_IMAGEBB_API_KEY=your_imgbb_api_key
+
+   # Site URL
+   NEXT_PUBLIC_SITE_URL=https://bberrybd.com
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── (pages)/           # Route groups
+│   │   ├── about/         # About page
+│   │   ├── addToCart/     # Cart page
+│   │   ├── admin/         # Admin dashboard
+│   │   ├── allProducts/   # Products listing
+│   │   ├── category/      # Category pages
+│   │   ├── checkout/      # Checkout flow
+│   │   ├── contact/       # Contact page
+│   │   ├── login/         # Authentication
+│   │   ├── orders/        # Order history
+│   │   ├── productDetails/# Product detail
+│   │   ├── profile/       # User profile
+│   │   └── signup/        # Registration
+│   ├── api/               # API routes
+│   ├── components/        # Shared components
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Homepage
+├── lib/
+│   ├── cache/             # Cache configuration
+│   ├── hooks/             # Custom React hooks
+│   ├── motion/            # Animation variants
+│   └── redux/             # Redux store & slices
+├── public/                # Static assets
+└── ...config files
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔐 Admin Access
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To access the admin panel:
+1. Create an account
+2. Update the user's role to `admin` in MongoDB
+3. Navigate to `/admin`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📝 Scripts
 
-## Learn More
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
+This project is private and proprietary.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👨‍💻 Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Rian Hasan Siam**
+- Website: [rianhasansiam.me](https://rianhasansiam.me)
+
+---
+
+Made with ❤️ in Bangladesh
