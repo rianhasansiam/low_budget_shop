@@ -201,7 +201,7 @@ export default function Navbar() {
               className="flex items-center gap-3"
             >
               <Image
-                src="/logo.PNG"
+                src="/logo.png"
                 alt="Store Logo"
                 width={50}
                 height={50}

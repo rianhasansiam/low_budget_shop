@@ -1,7 +1,7 @@
 {
-  "name": "Digicam Market",
-  "short_name": "Digicam",
-  "description": "Best Camera Accessories & Electronics Store in Bangladesh",
+  "name": "BlackBerry",
+  "short_name": "BlackBerry",
+  "description": "Premium Tech Gadgets & Electronics Store in Bangladesh",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -21,5 +21,5 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "electronics", "photography"]
+  "categories": ["shopping", "electronics", "technology"]
 }

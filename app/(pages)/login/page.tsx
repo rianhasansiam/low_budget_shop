@@ -4,8 +4,8 @@ import LoginClient from "./LoginClient";
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Login | Digicam Market",
-  description: "Sign in to your Digicam Market account.",
+  title: "Login | BlackBerry",
+  description: "Sign in to your BlackBerry account.",
 };
 
 function LoginFallback() {

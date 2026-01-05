@@ -22,7 +22,7 @@ export async function generateMetadata({
       
       if (product) {
         return {
-          title: `${product.name} | Digicam Market`,
+          title: `${product.name} | BlackBerry`,
           description: product.description?.slice(0, 160) || `Buy ${product.name} at the best price.`,
           openGraph: {
             title: product.name,
@@ -37,7 +37,7 @@ export async function generateMetadata({
   }
   
   return {
-    title: "Product Details | Digicam Market",
+    title: "Product Details | BlackBerry",
     description: "View detailed product information, specifications, and reviews.",
   };
 }

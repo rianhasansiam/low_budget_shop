@@ -160,13 +160,13 @@ const Footer = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Low Budget E-Commerce',
-            url: 'https://lowbudget-ecommerce.com',
-            logo: 'https://lowbudget-ecommerce.com/logo.png',
+            name: 'BlackBerry',
+            url: 'https://bberrybd.com',
+            logo: 'https://bberrybd.com/logo.png',
             sameAs: [
-              'https://facebook.com',
-              'https://twitter.com',
-              'https://instagram.com',
+              'https://facebook.com/bberrybd',
+              'https://twitter.com/bberrybd',
+              'https://instagram.com/bberrybd',
               'https://github.com',
             ],
             contactPoint: {
@@ -182,11 +182,11 @@ const Footer = () => {
           <nav className="lg:grid lg:grid-cols-12 mb-8" aria-label="Footer navigation">
             {/* Brand Section */}
             <div className="flex flex-col lg:col-span-3 lg:max-w-[248px]">
-              <Link href="/" className="mb-6 flex items-center" aria-label="Low Budget E-Commerce - Home">
+              <Link href="/" className="mb-6 flex items-center" aria-label="BlackBerry - Home">
                 {/* Using placeholder for logo - replace with actual logo */}
                 <div className="w-16 h-14 bg-white rounded-lg flex items-center justify-center mr-2" aria-hidden="true">
                   <Image
-                                  src="/logo.PNG"
+                                  src="/logo.png"
                                   alt="Store Logo"
                                   width={50}
                                   height={50}
@@ -195,7 +195,7 @@ const Footer = () => {
                                 />
                 </div>
                 <span className="text-lg lg:text-2xl font-bold text-white">
-                  Low Budget
+                  BlackBerry
                 </span>
               </Link>
               <p className="text-white/60 text-sm mb-9">
@@ -243,7 +243,7 @@ const Footer = () => {
           {/* Bottom Section */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center mb-2">
             <p className="text-sm text-center sm:text-left text-white/60 mb-4 sm:mb-0 sm:mr-1">
-              Low Budget E-Commerce © {new Date().getFullYear()} Made by{' '}
+              BlackBerry © {new Date().getFullYear()} Made by{' '}
               <Link
                 href="https://rianhasansiam.me"
                 className="text-white font-medium hover:underline"

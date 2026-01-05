@@ -14,22 +14,22 @@ import FilterSidebar from "./components/FilterSidebar";
 import type { Product } from "@/app/components/ProductCard";
 
 const MAX_PRICE = 500000;
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digicammarket.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com";
 
 // Category icons mapping (fallback icons)
 const categoryIcons: Record<string, string> = {
-  "DSLR Cameras": "📷",
-  "Mirrorless": "📸",
-  "Lenses": "🔭",
-  "Tripods": "📐",
-  "Lighting": "💡",
+  "Smartphones": "📱",
+  "Laptops": "💻",
+  "Smartwatches": "⌚",
+  "Earbuds": "🎧",
+  "Power Banks": "🔋",
   "Accessories": "🎒",
-  "Audio": "🎤",
-  "Video": "🎬",
-  "Drones": "🚁",
+  "Tablets": "📲",
+  "Gaming": "🎮",
+  "Speakers": "🔊",
   "Storage": "💾",
-  "Bags": "🎒",
-  "Filters": "🔲",
+  "Chargers": "🔌",
+  "Cases": "📦",
 };
 
 // Loading fallback component
@@ -54,12 +54,12 @@ function ProductsPageStructuredData() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "All Products - Digicam Market",
-          description: "Browse all camera accessories and electronics at Digicam Market",
+          name: "All Products - BlackBerry",
+          description: "Browse all tech gadgets and electronics at BlackBerry",
           url: `${siteUrl}/allProducts`,
           isPartOf: {
             "@type": "WebSite",
-            name: "Digicam Market",
+            name: "BlackBerry",
             url: siteUrl,
           },
           breadcrumb: {
@@ -134,11 +134,11 @@ function AllProductsContent() {
     if (!categoryParam) return null;
     const decodedCategory = decodeURIComponent(categoryParam);
     const categoryMap: Record<string, string> = {
-      dslr: "DSLR Cameras",
-      mirrorless: "Mirrorless",
-      lenses: "Lenses",
-      tripods: "Tripods",
-      lighting: "Lighting",
+      smartphones: "Smartphones",
+      laptops: "Laptops",
+      smartwatches: "Smartwatches",
+      earbuds: "Earbuds",
+      powerbanks: "Power Banks",
       accessories: "Accessories",
     };
     return categoryMap[decodedCategory.toLowerCase()] || decodedCategory;

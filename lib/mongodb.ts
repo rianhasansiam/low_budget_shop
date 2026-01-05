@@ -57,7 +57,7 @@ export default clientPromise;
 
 
 
-const DB_NAME = process.env.MONGODB_DB_NAME || "lowbudget_ecommerce";
+const DB_NAME = process.env.MONGODB_DB_NAME || "blackberry_ecommerce";
 
 // Helper function to get database instance
 export async function getDatabase(): Promise<Db> {

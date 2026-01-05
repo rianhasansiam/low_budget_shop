@@ -4,8 +4,8 @@ import SignupClient from "./SignupClient";
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Sign Up | Digicam Market",
-  description: "Create a new Digicam Market account.",
+  title: "Sign Up | BlackBerry",
+  description: "Create a new BlackBerry account.",
 };
 
 function SignupFallback() {

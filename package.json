@@ -1,5 +1,5 @@
 {
-  "name": "low_budget_e-commerce",
+  "name": "blackberry",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-query": "^5.90.12",
     "@types/bcryptjs": "^2.4.6",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",

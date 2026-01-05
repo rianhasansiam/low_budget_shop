@@ -27,7 +27,7 @@ function ensureProtocol(url: string): string {
 }
 
 // Base URL for the site (update this to your production URL)
-const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://low-budget.vercel.app");
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com");
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -42,28 +42,28 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Digicam Market | Best Camera Accessories & Electronics Store in Bangladesh",
-    template: "%s | Digicam Market",
+    default: "BlackBerry | Premium Tech Gadgets & Electronics Store in Bangladesh",
+    template: "%s | BlackBerry",
   },
   description:
-    "Shop premium camera accessories, DSLR, mirrorless cameras, lenses, tripods, and electronics at the best prices in Bangladesh. Free shipping, EMI available, and 24/7 support.",
+    "Shop premium tech gadgets, smartphones, laptops, smartwatches, earbuds, and electronics at the best prices in Bangladesh. Free shipping, EMI available, and 24/7 support.",
   keywords: [
-    "camera accessories",
-    "DSLR camera",
-    "mirrorless camera",
-    "camera lens",
-    "tripod",
-    "photography equipment",
-    "electronics store",
-    "Bangladesh",
+    "tech gadgets",
+    "smartphones",
+    "laptops",
+    "smartwatch",
+    "earbuds",
+    "electronics",
+    "gadgets Bangladesh",
     "online shopping",
     "best price",
     "free shipping",
     "EMI available",
+    "BlackBerry BD",
   ],
-  authors: [{ name: "Digicam Market" }],
-  creator: "Digicam Market",
-  publisher: "Digicam Market",
+  authors: [{ name: "BlackBerry" }],
+  creator: "BlackBerry",
+  publisher: "BlackBerry",
   formatDetection: {
     email: false,
     address: false,
@@ -73,26 +73,26 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Digicam Market",
-    title: "Digicam Market | Best Camera Accessories & Electronics Store",
+    siteName: "BlackBerry",
+    title: "BlackBerry | Premium Tech Gadgets & Electronics Store",
     description:
-      "Shop premium camera accessories and electronics at the best prices. Free shipping & EMI available.",
+      "Shop premium tech gadgets and electronics at the best prices. Free shipping & EMI available.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Digicam Market - Your Camera Store",
+        alt: "BlackBerry - Your Tech Gadget Store",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digicam Market | Best Camera Accessories Store",
+    title: "BlackBerry | Premium Tech Gadgets Store",
     description:
-      "Shop premium camera accessories and electronics at the best prices.",
+      "Shop premium tech gadgets and electronics at the best prices.",
     images: ["/og-image.jpg"],
-    creator: "@digicammarket",
+    creator: "@bberrybd",
   },
   robots: {
     index: true,
@@ -140,11 +140,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Digicam Market",
+              name: "BlackBerry",
               url: siteUrl,
               logo: `${siteUrl}/logo.png`,
               description:
-                "Premium camera accessories and electronics store in Bangladesh",
+                "Premium tech gadgets and electronics store in Bangladesh",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+880-1234-567890",
@@ -152,9 +152,9 @@ export default function RootLayout({
                 availableLanguage: ["English", "Bengali"],
               },
               sameAs: [
-                "https://facebook.com/digicammarket",
-                "https://instagram.com/digicammarket",
-                "https://twitter.com/digicammarket",
+                "https://facebook.com/bberrybd",
+                "https://instagram.com/bberrybd",
+                "https://twitter.com/bberrybd",
               ],
             }),
           }}
@@ -166,7 +166,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Digicam Market",
+              name: "BlackBerry",
               url: siteUrl,
               potentialAction: {
                 "@type": "SearchAction",
@@ -186,17 +186,17 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Store",
-              name: "Digicam Market",
+              name: "BlackBerry",
               image: `${siteUrl}/og-image.jpg`,
               url: siteUrl,
               telephone: "+880-1234-567890",
               priceRange: "৳৳",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Your Street Address",
+                streetAddress: "123 Tech Street",
                 addressLocality: "Dhaka",
                 addressRegion: "Dhaka",
-                postalCode: "1000",
+                postalCode: "1205",
                 addressCountry: "BD",
               },
               openingHoursSpecification: {

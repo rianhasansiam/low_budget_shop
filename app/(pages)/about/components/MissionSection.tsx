@@ -26,11 +26,11 @@ const MissionSection = () => {
               Our Mission
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-6">
-              Making Quality Affordable for Everyone
+              Making Technology Accessible for Everyone
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              At Low Budget E-Commerce, we&apos;re on a mission to democratize online shopping. 
-              We believe that financial constraints shouldn&apos;t limit your access to quality products.
+              At BlackBerry, we&apos;re on a mission to democratize technology. 
+              We believe that everyone deserves access to premium tech gadgets and electronics.
             </p>
             <p className="text-gray-600 text-lg leading-relaxed">
               Through strategic partnerships with manufacturers and efficient operations, 

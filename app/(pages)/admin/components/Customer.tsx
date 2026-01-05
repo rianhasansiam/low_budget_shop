@@ -5,7 +5,6 @@ import { Search, Mail, Eye, Calendar, ShoppingBag, Loader2, UserX, Shield, User,
 import { useGetData } from '@/lib/hooks/useGetData'
 import { useUpdateData } from '@/lib/hooks/useUpdateData'
 import { useDeleteData } from '@/lib/hooks/useDeleteData'
-import { useCacheManager } from '@/lib/hooks/useCacheManager'
 import { useOrders } from '@/lib/redux/hooks'
 import Image from 'next/image'
 import Swal from 'sweetalert2'
@@ -40,11 +39,8 @@ const Customer = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [userToDelete, setUserToDelete] = useState<UserData | null>(null)
 
-  // Cache manager for manual invalidation
-  const cache = useCacheManager()
-
   // Fetch users
-  const { data: usersData, isLoading: usersLoading, error: usersError, refetch: refetchUsers } = useGetData<ApiResponse<UserData[]>>(
+  const { data: usersData, isLoading: usersLoading, error: usersError } = useGetData<ApiResponse<UserData[]>>(
     'users',
     '/api/users'
   )
@@ -86,10 +82,6 @@ const Customer = () => {
         data: { role: newRole }
       })
       
-      // Invalidate cache and refetch
-      cache.invalidate('users')
-      refetchUsers()
-      
       // Update selected user if it's the one being updated
       if (selectedUser?._id === user._id) {
         setSelectedUser({ ...selectedUser, role: newRole })
@@ -123,10 +115,6 @@ const Customer = () => {
     
     try {
       await deleteUser.mutateAsync(userToDelete._id)
-      
-      // Invalidate cache and refetch
-      cache.invalidate('users')
-      refetchUsers()
       
       setShowDeleteModal(false)
       if (selectedUser?._id === userToDelete._id) {

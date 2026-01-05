@@ -1,4 +1,4 @@
-# Robots.txt for Digicam Market
+# Robots.txt for BlackBerry
 # https://www.robotstxt.org/robotstxt.html
 
 User-agent: *
@@ -20,7 +20,7 @@ Allow: /contact
 Allow: /productDetails/
 
 # Sitemap location
-Sitemap: https://digicammarket.com/sitemap.xml
+Sitemap: https://bberrybd.com/sitemap.xml
 
 # Crawl-delay (optional, for polite crawlers)
 Crawl-delay: 1

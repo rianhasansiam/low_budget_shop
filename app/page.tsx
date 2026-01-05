@@ -6,48 +6,48 @@ import AllProductsSection from "./components/AllProductsSection";
 
 import CategoriesSection from "./components/CategoriesSection";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digicammarket.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "Digicam Market | Best Camera Accessories & Electronics Store in Bangladesh",
+  title: "BlackBerry | Premium Tech Gadgets & Electronics Store in Bangladesh",
   description:
-    "Shop the best camera accessories, DSLR cameras, mirrorless cameras, lenses, tripods, lighting, and photography equipment at unbeatable prices. Free shipping, easy EMI, and 24/7 customer support in Bangladesh.",
+    "Shop the best tech gadgets, smartphones, laptops, smartwatches, earbuds, power banks, and electronics at unbeatable prices. Free shipping, easy EMI, and 24/7 customer support in Bangladesh.",
   keywords: [
-    "camera accessories Bangladesh",
-    "DSLR camera price BD",
-    "mirrorless camera",
-    "camera lens",
-    "tripod stand",
-    "photography equipment",
-    "online camera shop",
-    "best camera deals",
-    "camera store Bangladesh",
-    "buy camera online",
-    "photography gear",
-    "videography equipment",
+    "tech gadgets Bangladesh",
+    "smartphone price BD",
+    "laptop deals",
+    "smartwatch",
+    "earbuds",
+    "power bank",
+    "electronics store",
+    "online gadget shop",
+    "best gadget deals",
+    "buy electronics online",
+    "tech accessories",
+    "BlackBerry BD",
   ],
   openGraph: {
-    title: "Digicam Market | Best Camera Accessories & Electronics Store",
+    title: "BlackBerry | Premium Tech Gadgets & Electronics Store",
     description:
-      "Shop premium camera accessories and electronics at the best prices. Free shipping & easy EMI available in Bangladesh.",
+      "Shop premium tech gadgets and electronics at the best prices. Free shipping & easy EMI available in Bangladesh.",
     type: "website",
     url: siteUrl,
-    siteName: "Digicam Market",
+    siteName: "BlackBerry",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Digicam Market - Your Premier Camera Store",
+        alt: "BlackBerry - Your Premier Tech Gadget Store",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digicam Market | Best Camera Accessories Store",
+    title: "BlackBerry | Premium Tech Gadgets Store",
     description:
-      "Shop premium camera accessories and electronics at unbeatable prices.",
+      "Shop premium tech gadgets and electronics at unbeatable prices.",
     images: ["/og-image.jpg"],
   },
   alternates: {
@@ -65,12 +65,12 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Digicam Market - Home",
-            description: "Best Camera Accessories & Electronics Store in Bangladesh",
+            name: "BlackBerry - Home",
+            description: "Premium Tech Gadgets & Electronics Store in Bangladesh",
             url: siteUrl,
             isPartOf: {
               "@type": "WebSite",
-              name: "Digicam Market",
+              name: "BlackBerry",
               url: siteUrl,
             },
             breadcrumb: {

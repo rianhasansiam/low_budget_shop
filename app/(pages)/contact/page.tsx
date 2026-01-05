@@ -7,19 +7,19 @@ import FAQSection from "./components/FAQSection";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "Contact Us | Digicam Market - Camera Accessories Store",
+  title: "Contact Us | BlackBerry - Tech Gadgets Store",
   description:
-    "Get in touch with Digicam Market. We're here to help with your camera accessory needs. Contact us via email, phone, or visit our store.",
+    "Get in touch with BlackBerry. We're here to help with your tech gadget needs. Contact us via email, phone, or visit our store.",
   keywords: [
-    "contact digicam market",
-    "camera store contact",
+    "contact BlackBerry",
+    "tech gadget store contact",
     "customer support",
-    "camera accessories help",
+    "electronics help",
   ],
   openGraph: {
-    title: "Contact Us | Digicam Market",
+    title: "Contact Us | BlackBerry",
     description:
-      "Have questions? We'd love to hear from you. Reach out to Digicam Market for all your camera accessory needs.",
+      "Have questions? We'd love to hear from you. Reach out to BlackBerry for all your tech gadget needs.",
     type: "website",
   },
 };

@@ -36,6 +36,8 @@ export function useGetDataById<T>(key: string, endpoint: string, id: string | nu
 
 // Infinite scroll - fetch data in batches
 export function useInfiniteData<T>(key: string, endpoint: string, limit: number = 20) {
+  const cacheConfig = getCacheConfig(key);
+  
   return useInfiniteQuery<T[]>({
     queryKey: [key, "infinite"],
     queryFn: async ({ pageParam = 0 }) => {
@@ -48,5 +50,7 @@ export function useInfiniteData<T>(key: string, endpoint: string, limit: number 
       if (lastPage.length < limit) return undefined;
       return allPages.length * limit;
     },
+    staleTime: cacheConfig.staleTime,
+    gcTime: cacheConfig.gcTime,
   });
 }

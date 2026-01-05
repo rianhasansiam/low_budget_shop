@@ -13,20 +13,20 @@ const contactInfo: {
   {
     icon: Mail,
     title: "Email Us",
-    details: "support@digicammarket.com",
-    subDetails: "sales@digicammarket.com",
+    details: "support@bberrybd.com",
+    subDetails: "sales@bberrybd.com",
   },
   {
     icon: Phone,
     title: "Call Us",
-    details: "+1 (555) 123-4567",
-    subDetails: "+1 (555) 987-6543",
+    details: "+880 1234-567890",
+    subDetails: "+880 1234-567891",
   },
   {
     icon: MapPin,
     title: "Visit Us",
-    details: "123 Camera Street",
-    subDetails: "New York, NY 10001",
+    details: "123 Tech Street",
+    subDetails: "Dhaka, Bangladesh 1205",
   },
   {
     icon: Clock,

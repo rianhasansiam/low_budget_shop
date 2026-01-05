@@ -10,7 +10,7 @@ const defaultSettings = {
     enableFreeShipping: true
   },
   general: {
-    siteName: "Digicam Market",
+    siteName: "BlackBerry",
     currency: "BDT",
     currencySymbol: "৳"
   }

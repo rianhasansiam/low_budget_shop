@@ -10,7 +10,7 @@ export async function GET() {
     await client.db().admin().ping();
     
    
-    const dbName = process.env.MONGODB_DB_NAME || "lowbudget_ecommerce";
+    const dbName = process.env.MONGODB_DB_NAME || "blackberry_ecommerce";
     const db = client.db(dbName);
     
    

@@ -20,7 +20,7 @@ export default function HeroSection() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="text-lg text-gray-300 max-w-2xl mx-auto"
         >
-          Have questions about our camera accessories? We&apos;re here to help!
+          Have questions about our tech gadgets? We&apos;re here to help!
           Reach out to us through any of the channels below.
         </motion.p>
       </div>

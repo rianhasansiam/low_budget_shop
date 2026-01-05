@@ -9,7 +9,7 @@ function ensureProtocol(url: string): string {
   return url;
 }
 
-const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || 'https://low-budget.vercel.app');
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || 'https://bberrybd.com');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages

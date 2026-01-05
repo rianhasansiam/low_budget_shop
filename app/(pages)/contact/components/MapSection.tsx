@@ -30,7 +30,7 @@ export default function MapSection() {
             <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           </motion.div>
           <p className="text-gray-600 font-medium">
-            123 Camera Street, New York, NY 10001
+            123 Tech Street, Dhaka, Bangladesh 1205
           </p>
           <p className="text-gray-500 text-sm mt-2">
             Map integration coming soon

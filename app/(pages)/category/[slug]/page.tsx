@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import CategoryPageClient from "./CategoryPageClient";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digicammarket.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com";
 
 // Generate dynamic metadata for SEO
 export async function generateMetadata({
@@ -14,27 +14,27 @@ export async function generateMetadata({
 
   return {
     title: `${categoryName} - Shop Best ${categoryName} Products`,
-    description: `Browse our collection of ${categoryName}. Find the best deals on ${categoryName} with free shipping and EMI options. Shop now at Digicam Market.`,
+    description: `Browse our collection of ${categoryName}. Find the best deals on ${categoryName} with free shipping and EMI options. Shop now at BlackBerry.`,
     keywords: [
       categoryName.toLowerCase(),
       `${categoryName.toLowerCase()} price`,
       `buy ${categoryName.toLowerCase()}`,
       `${categoryName.toLowerCase()} online`,
-      "camera accessories",
+      "tech gadgets",
       "best price",
       "Bangladesh",
     ],
     openGraph: {
-      title: `${categoryName} | Digicam Market`,
-      description: `Shop the best ${categoryName} at Digicam Market. Quality products, great prices.`,
+      title: `${categoryName} | BlackBerry`,
+      description: `Shop the best ${categoryName} at BlackBerry. Quality products, great prices.`,
       type: "website",
       url: `${siteUrl}/category/${encodeURIComponent(categoryName)}`,
-      siteName: "Digicam Market",
+      siteName: "BlackBerry",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${categoryName} | Digicam Market`,
-      description: `Shop the best ${categoryName} at Digicam Market. Quality products, great prices.`,
+      title: `${categoryName} | BlackBerry`,
+      description: `Shop the best ${categoryName} at BlackBerry. Quality products, great prices.`,
     },
     alternates: {
       canonical: `${siteUrl}/category/${encodeURIComponent(categoryName)}`,
@@ -70,12 +70,12 @@ export default async function CategoryPage({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: `${categoryName} - Digicam Market`,
+            name: `${categoryName} - BlackBerry`,
             description: `Browse our collection of ${categoryName}`,
             url: `${siteUrl}/category/${encodeURIComponent(categoryName)}`,
             isPartOf: {
               "@type": "WebSite",
-              name: "Digicam Market",
+              name: "BlackBerry",
               url: siteUrl,
             },
             breadcrumb: {

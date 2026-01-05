@@ -7,31 +7,31 @@ import CTASection from './components/CTASection';
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'About Us | Low Budget E-Commerce - Affordable Quality Shopping',
+  title: 'About Us | BlackBerry - Premium Tech Gadgets',
   description:
-    'Learn about Low Budget E-Commerce - your trusted destination for affordable, quality products. Discover our mission, values, and the team behind your favorite budget-friendly shopping platform.',
+    'Learn about BlackBerry - your trusted destination for premium tech gadgets and electronics. Discover our mission, values, and the team behind your favorite tech store.',
   keywords: [
     'about us',
-    'low budget shopping',
-    'affordable e-commerce',
-    'budget-friendly products',
+    'tech gadgets store',
+    'electronics shop',
+    'premium gadgets',
     'online shopping',
     'quality products',
-    'discount shopping',
+    'BlackBerry BD',
   ],
   openGraph: {
-    title: 'About Us | Low Budget E-Commerce',
+    title: 'About Us | BlackBerry',
     description:
-      'Your trusted destination for affordable, quality products. Everyone deserves access to great products without breaking the bank.',
+      'Your trusted destination for premium tech gadgets. Everyone deserves access to great technology.',
     type: 'website',
     locale: 'en_US',
-    siteName: 'Low Budget E-Commerce',
+    siteName: 'BlackBerry',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us | Low Budget E-Commerce',
+    title: 'About Us | BlackBerry',
     description:
-      'Your trusted destination for affordable, quality products. Everyone deserves access to great products without breaking the bank.',
+      'Your trusted destination for premium tech gadgets. Everyone deserves access to great technology.',
   },
   robots: {
     index: true,
@@ -64,14 +64,14 @@ const AboutPage = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'AboutPage',
-            name: 'About Low Budget E-Commerce',
+            name: 'About BlackBerry',
             description:
-              'Your trusted destination for affordable, quality products.',
+              'Your trusted destination for premium tech gadgets and electronics.',
             mainEntity: {
               '@type': 'Organization',
-              name: 'Low Budget E-Commerce',
+              name: 'BlackBerry',
               description:
-                'An e-commerce platform dedicated to providing quality products at affordable prices.',
+                'A tech gadgets and electronics store dedicated to providing quality products at great prices.',
               foundingDate: '2024',
               numberOfEmployees: {
                 '@type': 'QuantitativeValue',
