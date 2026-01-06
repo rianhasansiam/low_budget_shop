@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
 // Default settings
 const defaultSettings = {
@@ -10,13 +11,13 @@ const defaultSettings = {
     enableFreeShipping: true
   },
   general: {
-    siteName: "BlackBerry",
+    siteName: "EngineersGadget",
     currency: "BDT",
     currencySymbol: "৳"
   }
 };
 
-// GET - Fetch settings
+// GET - Fetch settings (Public - needed for frontend)
 export async function GET() {
   try {
     const collection = await getCollection("settings");
@@ -50,9 +51,15 @@ export async function GET() {
   }
 }
 
-// PUT - Update settings
+// PUT - Update settings (Admin only)
 export async function PUT(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
     const collection = await getCollection("settings");
 

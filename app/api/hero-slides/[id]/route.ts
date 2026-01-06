@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Fetch single slide
+// GET - Fetch single slide (Public)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -33,12 +34,18 @@ export async function GET(
   }
 }
 
-// PUT - Update single slide
+// PUT - Update single slide (Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const body = await request.json();
     const collection = await getCollection("hero_slides");
@@ -81,12 +88,18 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete slide
+// DELETE - Delete slide (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const collection = await getCollection("hero_slides");
 

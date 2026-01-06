@@ -14,22 +14,22 @@ import FilterSidebar from "./components/FilterSidebar";
 import type { Product } from "@/app/components/ProductCard";
 
 const MAX_PRICE = 500000;
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
 
 // Category icons mapping (fallback icons)
 const categoryIcons: Record<string, string> = {
-  "Smartphones": "📱",
-  "Laptops": "💻",
-  "Smartwatches": "⌚",
-  "Earbuds": "🎧",
-  "Power Banks": "🔋",
-  "Accessories": "🎒",
-  "Tablets": "📲",
-  "Gaming": "🎮",
-  "Speakers": "🔊",
-  "Storage": "💾",
-  "Chargers": "🔌",
-  "Cases": "📦",
+  "Arduino": "🛠️",
+  "Raspberry Pi": "🥧",
+  "Sensors": "📡",
+  "Microcontrollers": "💻",
+  "IoT Devices": "🌐",
+  "Robotics": "🤖",
+  "3D Printing": "🖨️",
+  "Tools": "🔧",
+  "Components": "⚡",
+  "Displays": "📺",
+  "Motors": "⚙️",
+  "Accessories": "🎯",
 };
 
 // Loading fallback component
@@ -54,12 +54,12 @@ function ProductsPageStructuredData() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "All Products - BlackBerry",
-          description: "Browse all tech gadgets and electronics at BlackBerry",
+          name: "All Products - EngineersGadget",
+          description: "Browse all tech gadgets, electronics, and engineering tools at EngineersGadget",
           url: `${siteUrl}/allProducts`,
           isPartOf: {
             "@type": "WebSite",
-            name: "BlackBerry",
+            name: "EngineersGadget",
             url: siteUrl,
           },
           breadcrumb: {

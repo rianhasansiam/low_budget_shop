@@ -19,7 +19,7 @@ const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
             className="text-white border-b-4 border-white"
-          >BlackBerry</motion.span>
+          >EngineersGadget</motion.span>
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 30 }}
@@ -27,7 +27,7 @@ const HeroSection = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-gray-300 leading-relaxed"
         >
-          Your trusted destination for premium tech gadgets. We believe everyone deserves access to great technology at the best prices.
+          Your trusted destination for premium tech gadgets and engineering tools. We believe every engineer and tech enthusiast deserves access to great technology at the best prices.
         </motion.p>
       </div>
       {/* Decorative elements */}

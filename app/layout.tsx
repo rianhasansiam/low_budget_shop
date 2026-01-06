@@ -27,7 +27,7 @@ function ensureProtocol(url: string): string {
 }
 
 // Base URL for the site (update this to your production URL)
-const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com");
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech");
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -35,35 +35,40 @@ export const viewport: Viewport = {
   maximumScale: 5,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1a2e" },
   ],
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "BlackBerry | Premium Tech Gadgets & Electronics Store in Bangladesh",
-    template: "%s | BlackBerry",
+    default: "EngineersGadget | Premium Tech Gadgets & Electronics Store",
+    template: "%s | EngineersGadget",
   },
   description:
-    "Shop premium tech gadgets, smartphones, laptops, smartwatches, earbuds, and electronics at the best prices in Bangladesh. Free shipping, EMI available, and 24/7 support.",
+    "Discover premium tech gadgets, electronics, developer tools, IoT devices, Arduino, Raspberry Pi, and engineering essentials. Best prices, fast shipping, and expert support for engineers and tech enthusiasts.",
   keywords: [
     "tech gadgets",
-    "smartphones",
-    "laptops",
-    "smartwatch",
-    "earbuds",
     "electronics",
-    "gadgets Bangladesh",
-    "online shopping",
-    "best price",
-    "free shipping",
-    "EMI available",
-    "BlackBerry BD",
+    "engineering tools",
+    "Arduino",
+    "Raspberry Pi",
+    "IoT devices",
+    "developer tools",
+    "microcontrollers",
+    "sensors",
+    "robotics",
+    "3D printing",
+    "smart devices",
+    "programming accessories",
+    "electronic components",
+    "EngineersGadget",
+    "tech store",
+    "online electronics shop",
   ],
-  authors: [{ name: "BlackBerry" }],
-  creator: "BlackBerry",
-  publisher: "BlackBerry",
+  authors: [{ name: "EngineersGadget", url: "https://engineersgadget.tech" }],
+  creator: "EngineersGadget",
+  publisher: "EngineersGadget",
   formatDetection: {
     email: false,
     address: false,
@@ -73,26 +78,26 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "BlackBerry",
-    title: "BlackBerry | Premium Tech Gadgets & Electronics Store",
+    siteName: "EngineersGadget",
+    title: "EngineersGadget | Premium Tech Gadgets & Electronics Store",
     description:
-      "Shop premium tech gadgets and electronics at the best prices. Free shipping & EMI available.",
+      "Discover premium tech gadgets, electronics, and engineering tools. Arduino, Raspberry Pi, IoT devices & more. Fast shipping & expert support.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BlackBerry - Your Tech Gadget Store",
+        alt: "EngineersGadget - Your Ultimate Tech & Engineering Store",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BlackBerry | Premium Tech Gadgets Store",
+    title: "EngineersGadget | Premium Tech Gadgets Store",
     description:
-      "Shop premium tech gadgets and electronics at the best prices.",
+      "Discover premium tech gadgets, electronics, and engineering tools at the best prices.",
     images: ["/og-image.jpg"],
-    creator: "@bberrybd",
+    creator: "@engineersgadget",
   },
   robots: {
     index: true,
@@ -140,11 +145,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "BlackBerry",
+              name: "EngineersGadget",
               url: siteUrl,
               logo: `${siteUrl}/logo.png`,
               description:
-                "Premium tech gadgets and electronics store in Bangladesh",
+                "Premium tech gadgets, electronics, and engineering tools store for developers and tech enthusiasts",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+880-1234-567890",
@@ -152,9 +157,11 @@ export default function RootLayout({
                 availableLanguage: ["English", "Bengali"],
               },
               sameAs: [
-                "https://facebook.com/bberrybd",
-                "https://instagram.com/bberrybd",
-                "https://twitter.com/bberrybd",
+                "https://facebook.com/engineersgadget",
+                "https://instagram.com/engineersgadget",
+                "https://twitter.com/engineersgadget",
+                "https://github.com/engineersgadget",
+                "https://linkedin.com/company/engineersgadget",
               ],
             }),
           }}
@@ -166,7 +173,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "BlackBerry",
+              name: "EngineersGadget",
               url: siteUrl,
               potentialAction: {
                 "@type": "SearchAction",
@@ -186,17 +193,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Store",
-              name: "BlackBerry",
+              name: "EngineersGadget",
               image: `${siteUrl}/og-image.jpg`,
               url: siteUrl,
               telephone: "+880-1234-567890",
-              priceRange: "৳৳",
+              priceRange: "$$",
+              description: "Your one-stop shop for tech gadgets, electronics, and engineering tools",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "123 Tech Street",
-                addressLocality: "Dhaka",
-                addressRegion: "Dhaka",
-                postalCode: "1205",
                 addressCountry: "BD",
               },
               openingHoursSpecification: {

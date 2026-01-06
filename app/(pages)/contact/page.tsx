@@ -7,19 +7,20 @@ import FAQSection from "./components/FAQSection";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "Contact Us | BlackBerry - Tech Gadgets Store",
+  title: "Contact Us | EngineersGadget - Tech Gadgets Store",
   description:
-    "Get in touch with BlackBerry. We're here to help with your tech gadget needs. Contact us via email, phone, or visit our store.",
+    "Get in touch with EngineersGadget. We're here to help with your tech gadget and engineering tools needs. Contact us via email, phone, or visit our store.",
   keywords: [
-    "contact BlackBerry",
+    "contact EngineersGadget",
     "tech gadget store contact",
     "customer support",
     "electronics help",
+    "engineering tools support",
   ],
   openGraph: {
-    title: "Contact Us | BlackBerry",
+    title: "Contact Us | EngineersGadget",
     description:
-      "Have questions? We'd love to hear from you. Reach out to BlackBerry for all your tech gadget needs.",
+      "Have questions? We'd love to hear from you. Reach out to EngineersGadget for all your tech gadget and engineering needs.",
     type: "website",
   },
 };

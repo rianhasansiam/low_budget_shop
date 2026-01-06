@@ -1,13 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getCollection } from '@/lib/mongodb'
 import bcrypt from 'bcryptjs'
+import { requireAdmin } from '@/lib/auth'
 
-// GET - Fetch all users (admin only)
+// GET - Fetch all users (Admin only)
 export async function GET() {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin()
+    if (!authResult.isAdmin) {
+      return authResult.response
+    }
+
     const usersCollection = await getCollection('users')
     const users = await usersCollection
-      .find({})
+      .find({}, { projection: { password: 0 } })
       .sort({ createdAt: -1 })
       .toArray()
 
@@ -21,7 +28,7 @@ export async function GET() {
   }
 }
 
-// POST - Create new user (signup)
+// POST - Create new user (signup) - Public for registration
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

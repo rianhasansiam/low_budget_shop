@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import WishlistClient from "./WishlistClient";
 
 export const metadata: Metadata = {
-  title: "Wishlist | BlackBerry",
+  title: "Wishlist | EngineersGadget",
   description: "View and manage your saved items.",
 };
 

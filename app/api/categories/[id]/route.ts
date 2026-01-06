@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getCollection } from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Fetch single category by ID
+// GET - Fetch single category by ID (Public)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -29,12 +30,18 @@ export async function GET(
   }
 }
 
-// PUT - Update a category
+// PUT - Update a category (Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -70,12 +77,18 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete a category
+// DELETE - Delete a category (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const collection = await getCollection("categories");
     const result = await collection.deleteOne({ _id: new ObjectId(id) });

@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Fetch all coupons
+// GET - Fetch all coupons (Admin only)
 export async function GET() {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const collection = await getCollection("coupons");
     const coupons = await collection.find({}).sort({ createdAt: -1 }).toArray();
 
@@ -20,9 +27,15 @@ export async function GET() {
   }
 }
 
-// POST - Create a new coupon
+// POST - Create a new coupon (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
 
     // Validate required fields

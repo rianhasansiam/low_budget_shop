@@ -93,13 +93,6 @@ const footerLinksData = [
   },
 ];
 
-
-
-// Helper function for conditional classes
-const cn = (classes: (string | boolean | undefined)[]) => {
-  return classes.filter(Boolean).join(' ');
-};
-
 // Links Section Component
 const LinksSection = () => {
   return (
@@ -111,12 +104,12 @@ const LinksSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: sectionIndex * 0.1, duration: 0.5 }}
-          className="mb-6 lg:mb-0"
+          className="mb-6 sm:mb-8 lg:mb-0"
         >
-          <h2 className="text-white font-medium tracking-wider mb-4 text-sm uppercase">
+          <h2 className="text-white font-medium tracking-wider mb-3 sm:mb-4 text-xs sm:text-sm uppercase">
             {section.title}
           </h2>
-          <ul className="space-y-3">
+          <ul className="space-y-2 sm:space-y-3">
             {section.links.map((link, index) => (
               <motion.li 
                 key={index}
@@ -125,7 +118,7 @@ const LinksSection = () => {
               >
                 <Link
                   href={link.href}
-                  className="text-white/60 hover:text-white text-sm transition-colors duration-200"
+                  className="text-white/60 hover:text-white text-xs sm:text-sm transition-colors duration-200 block py-0.5"
                 >
                   {link.name}
                 </Link>
@@ -160,14 +153,15 @@ const Footer = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'BlackBerry',
-            url: 'https://bberrybd.com',
-            logo: 'https://bberrybd.com/logo.png',
+            name: 'EngineersGadget',
+            url: 'https://engineersgadget.tech',
+            logo: 'https://engineersgadget.tech/logo.png',
             sameAs: [
-              'https://facebook.com/bberrybd',
-              'https://twitter.com/bberrybd',
-              'https://instagram.com/bberrybd',
-              'https://github.com',
+              'https://facebook.com/engineersgadget',
+              'https://twitter.com/engineersgadget',
+              'https://instagram.com/engineersgadget',
+              'https://github.com/engineersgadget',
+              'https://linkedin.com/company/engineersgadget',
             ],
             contactPoint: {
               '@type': 'ContactPoint',
@@ -177,32 +171,27 @@ const Footer = () => {
           }),
         }}
       />
-      <div className="pt-8 md:pt-[50px] container mx-auto px-4 pb-4">
+      <div className="pt-6 sm:pt-8 md:pt-12 lg:pt-[50px] container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pb-4">
         <div className="max-w-7xl mx-auto">
-          <nav className="lg:grid lg:grid-cols-12 mb-8" aria-label="Footer navigation">
+          <nav className="lg:grid lg:grid-cols-12 gap-6 sm:gap-8 mb-6 sm:mb-8" aria-label="Footer navigation">
             {/* Brand Section */}
             <div className="flex flex-col lg:col-span-3 lg:max-w-[248px]">
-              <Link href="/" className="mb-6 flex items-center" aria-label="BlackBerry - Home">
+              <Link href="/" className="flex items-center" aria-label="EngineersGadget - Home">
                 {/* Using placeholder for logo - replace with actual logo */}
-                <div className="w-16 h-14 bg-white rounded-lg flex items-center justify-center mr-2" aria-hidden="true">
-                  <Image
-                                  src="/logo.png"
-                                  alt="Store Logo"
-                                  width={50}
-                                  height={50}
-                                  className="rounded-xl"
-                                  priority
-                                />
-                </div>
-                <span className="text-lg lg:text-2xl font-bold text-white">
-                  BlackBerry
-                </span>
+                <Image
+                  src="/foot.png"
+                  alt="Store Logo"
+                  width={100}
+                  height={100}
+                  className="rounded-xl w-[120px] sm:w-[150px] lg:w-full h-auto mb-3 sm:mb-4"
+                  priority
+                />
               </Link>
-              <p className="text-white/60 text-sm mb-9">
+              <p className="text-white/60 text-xs sm:text-sm mb-6 sm:mb-9 leading-relaxed max-w-[280px] sm:max-w-none">
                 We have products that suit your needs and which you&apos;re proud to
                 own. Quality items at affordable prices for everyone.
               </p>
-              <div className="flex items-center">
+              <div className="flex items-center flex-wrap gap-1">
                 {socialsData.map((social, index) => (
                   <motion.div
                     key={social.id}
@@ -215,7 +204,7 @@ const Footer = () => {
                   >
                     <Link
                       href={social.url}
-                      className="bg-white hover:bg-gray-200 hover:text-black transition-all mr-3 w-7 h-7 rounded-full border border-white/20 flex items-center justify-center p-1.5 text-black"
+                      className="bg-white hover:bg-gray-200 hover:text-black transition-all w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/20 flex items-center justify-center p-1.5 sm:p-2 text-black"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Follow us on ${social.name}`}
@@ -228,22 +217,22 @@ const Footer = () => {
             </div>
 
             {/* Links - Desktop */}
-            <div className="hidden lg:grid col-span-9 lg:grid-cols-4 lg:pl-10">
+            <div className="hidden lg:grid col-span-9 lg:grid-cols-4 lg:pl-10 gap-4">
               <LinksSection />
             </div>
 
-            {/* Links - Mobile */}
-            <div className="grid lg:hidden grid-cols-2 sm:grid-cols-4 mt-8">
+            {/* Links - Mobile/Tablet */}
+            <div className="grid lg:hidden grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8">
               <LinksSection />
             </div>
           </nav>
 
-          <hr className="h-[1px] border-t-white/10 mb-6" />
+          <hr className="h-px border-t-white/10 mb-4 sm:mb-6" />
 
           {/* Bottom Section */}
-          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center mb-2">
-            <p className="text-sm text-center sm:text-left text-white/60 mb-4 sm:mb-0 sm:mr-1">
-              BlackBerry © {new Date().getFullYear()} Made by{' '}
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-3 sm:gap-0 mb-2">
+            <p className="text-xs sm:text-sm text-center sm:text-left text-white/60">
+              EngineersGadget © {new Date().getFullYear()} Made by{' '}
               <Link
                 href="https://rianhasansiam.me"
                 className="text-white font-medium hover:underline"

@@ -1,16 +1,23 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Test database connection
+// GET - Test database connection (Admin only - for debugging)
 export async function GET() {
   try {
+    // Only admins should be able to see database info
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const client = await clientPromise;
     
    
     await client.db().admin().ping();
     
    
-    const dbName = process.env.MONGODB_DB_NAME || "blackberry_ecommerce";
+    const dbName = process.env.MONGODB_DB_NAME || "lowbudget_ecommerce";
     const db = client.db(dbName);
     
    

@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
+import { requireAuth } from "@/lib/auth";
 
-// GET - Fetch all orders with optional filtering
+// GET - Fetch orders (Admin: all orders, User: own orders only)
 export async function GET(request: NextRequest) {
   try {
+    // Check if user is authenticated
+    const authResult = await requireAuth();
+    if (!authResult.isAuthenticated) {
+      return authResult.response;
+    }
+
     const { searchParams } = new URL(request.url);
     const limit = Math.min(parseInt(searchParams.get("limit") || "50"), 100);
     const skip = parseInt(searchParams.get("skip") || "0");
@@ -17,7 +24,12 @@ export async function GET(request: NextRequest) {
     if (status) {
       filter.status = status;
     }
-    if (email) {
+    
+    // If not admin, only show user's own orders
+    if (authResult.user.role !== 'admin') {
+      filter.email = authResult.user.email;
+    } else if (email) {
+      // Admin can filter by email
       filter.email = email;
     }
 
@@ -56,9 +68,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Create a new order
+// POST - Create a new order (Authenticated users only)
 export async function POST(request: NextRequest) {
   try {
+    // User must be authenticated to place an order
+    const authResult = await requireAuth();
+    if (!authResult.isAuthenticated) {
+      return authResult.response;
+    }
+
     const body = await request.json();
 
     // Validate required fields

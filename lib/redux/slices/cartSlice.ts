@@ -14,7 +14,7 @@ interface CartState {
   totalPrice: number;
 }
 
-const CART_STORAGE_KEY = 'blackberry_cart';
+const CART_STORAGE_KEY = 'engineersgadget_cart';
 
 // Load cart from localStorage
 const loadCartFromStorage = (): CartState => {

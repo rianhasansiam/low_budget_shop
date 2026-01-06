@@ -1,13 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { requireAuth, requireAdmin } from "@/lib/auth";
 
-// GET - Fetch single order by ID
+// GET - Fetch single order by ID (Owner or Admin only)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // User must be authenticated
+    const authResult = await requireAuth();
+    if (!authResult.isAuthenticated) {
+      return authResult.response;
+    }
+
     const { id } = await params;
 
     // Validate ObjectId format
@@ -28,6 +35,14 @@ export async function GET(
       );
     }
 
+    // Check if user owns this order or is admin
+    if (authResult.user.role !== 'admin' && order.email !== authResult.user.email) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden - You can only view your own orders" },
+        { status: 403 }
+      );
+    }
+
     return NextResponse.json({
       success: true,
       data: order,
@@ -41,12 +56,18 @@ export async function GET(
   }
 }
 
-// PUT - Update an order
+// PUT - Update an order (Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Only admins can update orders
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -137,12 +158,18 @@ export async function PUT(
   }
 }
 
-// PATCH - Partially update an order (useful for status updates)
+// PATCH - Partially update an order (Admin only)
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Only admins can update orders
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -184,12 +211,18 @@ export async function PATCH(
   }
 }
 
-// DELETE - Delete an order
+// DELETE - Delete an order (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Only admins can delete orders
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
 
     // Validate ObjectId format

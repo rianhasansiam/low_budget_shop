@@ -16,7 +16,7 @@ interface WishlistState {
   totalItems: number;
 }
 
-const WISHLIST_STORAGE_KEY = 'blackberry_wishlist';
+const WISHLIST_STORAGE_KEY = 'engineersgadget_wishlist';
 
 // Load wishlist from localStorage
 const loadWishlistFromStorage = (): WishlistState => {

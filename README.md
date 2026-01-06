@@ -1,15 +1,15 @@
-# BlackBerry - Premium Tech Gadgets E-Commerce
+# EngineersGadget - Premium Tech Gadgets & Engineering Tools E-Commerce
 
-A modern, full-featured e-commerce platform for tech gadgets and electronics built with Next.js 16, React 19, and MongoDB.
+A modern, full-featured e-commerce platform for tech gadgets, electronics, and engineering tools built with Next.js 16, React 19, and MongoDB.
 
-🌐 **Live Demo:** [bberrybd.com](https://bberrybd.com)
+🌐 **Live Demo:** [engineersgadget.tech](https://engineersgadget.tech)
 
-![BlackBerry E-Commerce](public/og-image.jpg)
+![EngineersGadget E-Commerce](public/og-image.jpg)
 
 ## ✨ Features
 
 ### 🛍️ Shopping Experience
-- **Product Catalog** - Browse smartphones, laptops, smartwatches, earbuds & more
+- **Product Catalog** - Browse Arduino, Raspberry Pi, sensors, microcontrollers, IoT devices & more
 - **Advanced Filtering** - Filter by category, price range, colors, and badges
 - **Product Search** - Real-time search across all products
 - **Wishlist** - Save favorite items for later
@@ -63,8 +63,8 @@ A modern, full-featured e-commerce platform for tech gadgets and electronics bui
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/blackberry-ecommerce.git
-   cd blackberry-ecommerce
+   git clone https://github.com/yourusername/engineersgadget.git
+   cd engineersgadget
    ```
 
 2. **Install dependencies**
@@ -78,7 +78,7 @@ A modern, full-featured e-commerce platform for tech gadgets and electronics bui
    ```env
    # MongoDB
    MONGODB_URI=your_mongodb_connection_string
-   MONGODB_DB_NAME=blackberry_ecommerce
+   MONGODB_DB_NAME=lowbudget_ecommerce
 
    # NextAuth
    NEXTAUTH_SECRET=your_nextauth_secret
@@ -92,7 +92,7 @@ A modern, full-featured e-commerce platform for tech gadgets and electronics bui
    NEXT_PUBLIC_IMAGEBB_API_KEY=your_imgbb_api_key
 
    # Site URL
-   NEXT_PUBLIC_SITE_URL=https://bberrybd.com
+   NEXT_PUBLIC_SITE_URL=https://engineersgadget.tech
    NEXT_PUBLIC_BASE_URL=http://localhost:3000
    ```
 

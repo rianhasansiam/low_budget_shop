@@ -7,31 +7,32 @@ import CTASection from './components/CTASection';
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'About Us | BlackBerry - Premium Tech Gadgets',
+  title: 'About Us | EngineersGadget - Premium Tech Gadgets & Engineering Tools',
   description:
-    'Learn about BlackBerry - your trusted destination for premium tech gadgets and electronics. Discover our mission, values, and the team behind your favorite tech store.',
+    'Learn about EngineersGadget - your trusted destination for premium tech gadgets, electronics, and engineering tools. Discover our mission, values, and the team behind your favorite tech store.',
   keywords: [
     'about us',
     'tech gadgets store',
     'electronics shop',
-    'premium gadgets',
-    'online shopping',
-    'quality products',
-    'BlackBerry BD',
+    'engineering tools',
+    'Arduino',
+    'Raspberry Pi',
+    'IoT devices',
+    'EngineersGadget',
   ],
   openGraph: {
-    title: 'About Us | BlackBerry',
+    title: 'About Us | EngineersGadget',
     description:
-      'Your trusted destination for premium tech gadgets. Everyone deserves access to great technology.',
+      'Your trusted destination for premium tech gadgets and engineering tools. Everyone deserves access to great technology.',
     type: 'website',
     locale: 'en_US',
-    siteName: 'BlackBerry',
+    siteName: 'EngineersGadget',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us | BlackBerry',
+    title: 'About Us | EngineersGadget',
     description:
-      'Your trusted destination for premium tech gadgets. Everyone deserves access to great technology.',
+      'Your trusted destination for premium tech gadgets and engineering tools. Everyone deserves access to great technology.',
   },
   robots: {
     index: true,
@@ -64,14 +65,14 @@ const AboutPage = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'AboutPage',
-            name: 'About BlackBerry',
+            name: 'About EngineersGadget',
             description:
-              'Your trusted destination for premium tech gadgets and electronics.',
+              'Your trusted destination for premium tech gadgets, electronics, and engineering tools.',
             mainEntity: {
               '@type': 'Organization',
-              name: 'BlackBerry',
+              name: 'EngineersGadget',
               description:
-                'A tech gadgets and electronics store dedicated to providing quality products at great prices.',
+                'A tech gadgets and engineering tools store dedicated to providing quality products at great prices for engineers and tech enthusiasts.',
               foundingDate: '2024',
               numberOfEmployees: {
                 '@type': 'QuantitativeValue',

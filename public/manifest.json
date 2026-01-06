@@ -1,12 +1,14 @@
 {
-  "name": "BlackBerry",
-  "short_name": "BlackBerry",
-  "description": "Premium Tech Gadgets & Electronics Store in Bangladesh",
+  "name": "EngineersGadget",
+  "short_name": "EngineersGadget",
+  "description": "Premium Tech Gadgets, Electronics & Engineering Tools Store - Arduino, Raspberry Pi, IoT Devices & More",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#1a1a2e",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -21,5 +23,5 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "electronics", "technology"]
+  "categories": ["shopping", "electronics", "technology", "education", "productivity"]
 }

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Fetch products with pagination, filtering, and caching
+// GET - Fetch products with pagination, filtering, and caching (Public)
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -40,9 +41,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Add a new product
+// POST - Add a new product (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
 
     const product = {

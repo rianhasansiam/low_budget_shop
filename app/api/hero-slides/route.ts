@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { requireAdmin } from "@/lib/auth";
 
 export interface HeroSlide {
   _id?: string;
@@ -58,7 +59,7 @@ const defaultSlides: Omit<HeroSlide, "_id">[] = [
   },
 ];
 
-// GET - Fetch all hero slides
+// GET - Fetch all hero slides (Public)
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -101,9 +102,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Add new slide
+// POST - Add new slide (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
     const collection = await getCollection("hero_slides");
 
@@ -143,9 +150,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Update slide order or bulk update
+// PUT - Update slide order or bulk update (Admin only)
 export async function PUT(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
     const collection = await getCollection("hero_slides");
 

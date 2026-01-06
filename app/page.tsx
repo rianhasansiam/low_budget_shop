@@ -6,48 +6,48 @@ import AllProductsSection from "./components/AllProductsSection";
 
 import CategoriesSection from "./components/CategoriesSection";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bberrybd.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "BlackBerry | Premium Tech Gadgets & Electronics Store in Bangladesh",
+  title: "EngineersGadget | Premium Tech Gadgets & Electronics Store",
   description:
-    "Shop the best tech gadgets, smartphones, laptops, smartwatches, earbuds, power banks, and electronics at unbeatable prices. Free shipping, easy EMI, and 24/7 customer support in Bangladesh.",
+    "Discover premium tech gadgets, electronics, Arduino, Raspberry Pi, IoT devices, and engineering tools. Best prices, fast shipping, and expert support for engineers and tech enthusiasts.",
   keywords: [
-    "tech gadgets Bangladesh",
-    "smartphone price BD",
-    "laptop deals",
-    "smartwatch",
-    "earbuds",
-    "power bank",
+    "tech gadgets",
     "electronics store",
-    "online gadget shop",
-    "best gadget deals",
-    "buy electronics online",
-    "tech accessories",
-    "BlackBerry BD",
+    "Arduino",
+    "Raspberry Pi",
+    "IoT devices",
+    "engineering tools",
+    "microcontrollers",
+    "sensors",
+    "robotics",
+    "developer tools",
+    "electronic components",
+    "EngineersGadget",
   ],
   openGraph: {
-    title: "BlackBerry | Premium Tech Gadgets & Electronics Store",
+    title: "EngineersGadget | Premium Tech Gadgets & Electronics Store",
     description:
-      "Shop premium tech gadgets and electronics at the best prices. Free shipping & easy EMI available in Bangladesh.",
+      "Discover premium tech gadgets, electronics, and engineering tools. Arduino, Raspberry Pi, IoT devices & more.",
     type: "website",
     url: siteUrl,
-    siteName: "BlackBerry",
+    siteName: "EngineersGadget",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BlackBerry - Your Premier Tech Gadget Store",
+        alt: "EngineersGadget - Your Ultimate Tech & Engineering Store",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BlackBerry | Premium Tech Gadgets Store",
+    title: "EngineersGadget | Premium Tech Gadgets Store",
     description:
-      "Shop premium tech gadgets and electronics at unbeatable prices.",
+      "Discover premium tech gadgets, electronics, and engineering tools at the best prices.",
     images: ["/og-image.jpg"],
   },
   alternates: {
@@ -65,12 +65,12 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "BlackBerry - Home",
-            description: "Premium Tech Gadgets & Electronics Store in Bangladesh",
+            name: "EngineersGadget - Home",
+            description: "Premium Tech Gadgets, Electronics & Engineering Tools Store",
             url: siteUrl,
             isPartOf: {
               "@type": "WebSite",
-              name: "BlackBerry",
+              name: "EngineersGadget",
               url: siteUrl,
             },
             breadcrumb: {

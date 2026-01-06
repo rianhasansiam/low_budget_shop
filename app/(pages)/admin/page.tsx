@@ -128,10 +128,10 @@ export default function AdminPage() {
         <div className="p-5 border-b border-gray-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-gray-900 font-bold text-lg">BB</span>
+              <span className="text-gray-900 font-bold text-lg">EG</span>
             </div>
             <div>
-              <h1 className="text-base font-bold text-white">BlackBerry</h1>
+              <h1 className="text-base font-bold text-white">EngineersGadget</h1>
               <p className="text-xs text-gray-400">Admin Panel</p>
             </div>
           </div>

@@ -21,7 +21,6 @@ import {
   Settings,
   ShoppingBag,
   Search,
-  Loader2,
 } from "lucide-react";
 import { useCategories, useAppSelector, useProducts } from "@/lib/redux/hooks";
 import type { Category } from "@/lib/redux/slices/categoriesSlice";
@@ -192,26 +191,22 @@ export default function Navbar() {
           : "bg-white border-b border-gray-100"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 mr-2 ">
+          <Link href="/" className="flex-shrink-0 mr-2 sm:mr-3 mt-1 w-[100px] sm:w-[120px] md:w-[140px] lg:w-[15%]">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-3"
+              className="flex items-center justify-center w-full"
             >
               <Image
                 src="/logo.png"
                 alt="Store Logo"
-                width={50}
-                height={50}
-                className="rounded-xl"
+                width={120}
+                height={100}
+                className="w-full h-auto object-contain"
                 priority
               />
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">E-Commerce</h1>
-                <p className="text-xs text-gray-500 -mt-0.5">Electronics Store</p>
-              </div>
             </motion.div>
           </Link>
 
@@ -416,27 +411,27 @@ export default function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2">
             {/* Mobile Search Button */}
             <motion.button
               whileHover={{ y: -2 }}
               onClick={() => setShowMobileSearch(!showMobileSearch)}
-              className="lg:hidden p-2.5 hover:bg-gray-100 rounded-xl transition-colors"
+              className="lg:hidden p-2 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors"
               aria-label="Search"
             >
-              <Search className="w-5 h-5 text-gray-600" />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
             </motion.button>
 
             {/* Wishlist */}
             <Link href="/wilishlist">
               <motion.button
                 whileHover={{ y: -2 }}
-                className="relative p-2.5 hover:bg-gray-100 rounded-xl transition-colors"
+                className="relative p-2 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5 text-gray-600" />
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
                 {wishlistTotalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] sm:text-xs rounded-full w-3.5 h-3.5 sm:w-4 sm:h-4 flex items-center justify-center font-medium">
                     {wishlistTotalItems > 9 ? "9+" : wishlistTotalItems}
                   </span>
                 )}
@@ -447,12 +442,12 @@ export default function Navbar() {
             <Link href="/addToCart">
               <motion.button
                 whileHover={{ y: -2 }}
-                className="relative p-2.5 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors"
+                className="relative p-2 sm:p-2.5 bg-gray-900 text-white rounded-lg sm:rounded-xl hover:bg-gray-800 transition-colors"
                 aria-label="Cart"
               >
-                <ShoppingCart className="w-5 h-5" />
+                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
                 {cartTotalQuantity > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-900 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold">
                     {cartTotalQuantity > 9 ? "9+" : cartTotalQuantity}
                   </span>
                 )}
@@ -467,7 +462,7 @@ export default function Navbar() {
             >
               <motion.button
                 whileHover={{ y: -2 }}
-                className="p-2.5 hover:bg-gray-100 rounded-xl transition-colors flex items-center gap-2"
+                className="p-2 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors flex items-center gap-1 sm:gap-2"
               >
                 {user?.image ? (
                   <Image
@@ -475,10 +470,10 @@ export default function Navbar() {
                     alt={user.name || "User"}
                     width={24}
                     height={24}
-                    className="w-6 h-6 rounded-full object-cover ring-2 ring-gray-100"
+                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover ring-2 ring-gray-100"
                   />
                 ) : (
-                  <User className="w-5 h-5 text-gray-600" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
                 )}
                 {isAuthenticated && (
                   <ChevronDown className={`w-3 h-3 text-gray-400 hidden md:block transition-transform ${isUserDropdownOpen ? "rotate-180" : ""}`} />
@@ -594,10 +589,10 @@ export default function Navbar() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2.5 hover:bg-gray-100 rounded-xl transition-colors"
+              className="md:hidden p-2 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
             </motion.button>
           </div>
         </div>
@@ -611,7 +606,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden border-t border-gray-100 bg-white px-4 py-3"
+              className="lg:hidden border-t border-gray-100 bg-white px-3 sm:px-4 py-2 sm:py-3"
             >
               <form onSubmit={handleSearchSubmit}>
                 <div className="relative">
@@ -714,9 +709,9 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-gray-100 bg-white"
+              className="md:hidden border-t border-gray-100 bg-white max-h-[calc(100vh-60px)] overflow-y-auto"
             >
-              <nav className="py-4 space-y-1">
+              <nav className="py-3 sm:py-4 space-y-1">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.label}
@@ -726,7 +721,7 @@ export default function Navbar() {
                   >
                     <Link href={item.href}>
                       <div
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg mx-2 transition-colors ${
+                        className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg mx-2 transition-colors text-sm sm:text-base ${
                           isNavItemActive(item)
                             ? "bg-gray-900 text-white"
                             : item.adminOnly
@@ -743,25 +738,25 @@ export default function Navbar() {
 
                 {/* Mobile Categories */}
                 {categories && categories.length > 0 && (
-                  <div className="px-4 pt-4 border-t border-gray-100 mt-4">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  <div className="px-3 sm:px-4 pt-3 sm:pt-4 border-t border-gray-100 mt-3 sm:mt-4">
+                    <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">
                       Categories
                     </p>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                       {categories.slice(0, 6).map((category: Category) => (
                         <Link
                           key={category._id}
                           href={`/category/${encodeURIComponent(category.name)}`}
-                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-50 transition-colors"
                         >
                           <Image
                             src={category.image}
                             alt={category.name}
                             width={24}
                             height={24}
-                            className="rounded object-cover"
+                            className="w-5 h-5 sm:w-6 sm:h-6 rounded object-cover"
                           />
-                          <span className="text-sm text-gray-700 truncate">
+                          <span className="text-xs sm:text-sm text-gray-700 truncate">
                             {category.name}
                           </span>
                         </Link>
@@ -771,38 +766,38 @@ export default function Navbar() {
                 )}
 
                 {/* Mobile Auth */}
-                <div className="px-4 pt-4 border-t border-gray-100 mt-4">
+                <div className="px-3 sm:px-4 pt-3 sm:pt-4 border-t border-gray-100 mt-3 sm:mt-4">
                   {isAuthenticated ? (
                     <div className="space-y-1">
-                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-2">
+                      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-gray-50 rounded-lg mb-2">
                         {user?.image ? (
                           <Image
                             src={user.image}
                             alt={user.name || "User"}
                             width={40}
                             height={40}
-                            className="w-10 h-10 rounded-full object-cover"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                            <User className="w-5 h-5 text-gray-500" />
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                           </div>
                         )}
-                        <div>
-                          <p className="font-medium text-gray-900">{user?.name}</p>
-                          <p className="text-xs text-gray-500">{user?.email}</p>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-gray-900 text-sm sm:text-base truncate">{user?.name}</p>
+                          <p className="text-[10px] sm:text-xs text-gray-500 truncate">{user?.email}</p>
                         </div>
                       </div>
                       <Link
                         href="/profile"
-                        className="flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg"
+                        className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 text-sm sm:text-base text-gray-700 hover:bg-gray-50 rounded-lg"
                       >
                         <Settings className="w-4 h-4" />
                         My Account
                       </Link>
                       <button
                         onClick={handleSignOut}
-                        className="flex items-center gap-3 w-full px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg"
+                        className="flex items-center gap-2 sm:gap-3 w-full px-2 sm:px-3 py-2 sm:py-2.5 text-sm sm:text-base text-red-600 hover:bg-red-50 rounded-lg"
                       >
                         <LogOut className="w-4 h-4" />
                         Sign Out
@@ -812,13 +807,13 @@ export default function Navbar() {
                     <div className="grid grid-cols-2 gap-2">
                       <Link
                         href="/login"
-                        className="flex items-center justify-center gap-2 py-2.5 text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50"
+                        className="flex items-center justify-center gap-2 py-2 sm:py-2.5 text-sm sm:text-base text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50"
                       >
                         Sign In
                       </Link>
                       <Link
                         href="/signup"
-                        className="flex items-center justify-center gap-2 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+                        className="flex items-center justify-center gap-2 py-2 sm:py-2.5 text-sm sm:text-base bg-gray-900 text-white rounded-lg hover:bg-gray-800"
                       >
                         Sign Up
                       </Link>

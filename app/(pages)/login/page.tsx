@@ -4,8 +4,8 @@ import LoginClient from "./LoginClient";
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Login | BlackBerry",
-  description: "Sign in to your BlackBerry account.",
+  title: "Login | EngineersGadget",
+  description: "Sign in to your EngineersGadget account.",
 };
 
 function LoginFallback() {

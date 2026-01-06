@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { requireAdmin } from "@/lib/auth";
 
 // Helper to get the correct filter based on ID format
 const getIdFilter = (id: string) => {
@@ -16,7 +17,7 @@ const getIdFilter = (id: string) => {
   return { _id: id as unknown as ObjectId };
 };
 
-// GET - Fetch single product by ID
+// GET - Fetch single product by ID (Public)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -43,12 +44,18 @@ export async function GET(
   }
 }
 
-// PUT - Update a product
+// PUT - Update a product (Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -85,12 +92,18 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete a product
+// DELETE - Delete a product (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const { id } = await params;
     const collection = await getCollection("allProducts");
     const result = await collection.deleteOne(getIdFilter(id));

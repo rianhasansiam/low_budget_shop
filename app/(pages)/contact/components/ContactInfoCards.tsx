@@ -13,8 +13,8 @@ const contactInfo: {
   {
     icon: Mail,
     title: "Email Us",
-    details: "support@bberrybd.com",
-    subDetails: "sales@bberrybd.com",
+    details: "support@engineersgadget.tech",
+    subDetails: "sales@engineersgadget.tech",
   },
   {
     icon: Phone,

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCollection } from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 import bcrypt from 'bcryptjs'
+import { requireOwnerOrAdmin, requireAdmin } from '@/lib/auth'
 
 // Helper to get ID filter - always convert to ObjectId for valid IDs
 function getIdFilter(id: string): { _id: ObjectId } {
@@ -13,13 +14,20 @@ function getIdFilter(id: string): { _id: ObjectId } {
   throw new Error('Invalid user ID format')
 }
 
-// GET - Get single user by ID
+// GET - Get single user by ID (Owner or Admin only)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params
+
+    // Check if user is owner or admin
+    const authResult = await requireOwnerOrAdmin(id)
+    if (!authResult.isAuthorized) {
+      return authResult.response
+    }
+
     const usersCollection = await getCollection('users')
     
     const user = await usersCollection.findOne(
@@ -44,13 +52,20 @@ export async function GET(
   }
 }
 
-// PUT - Update user
+// PUT - Update user (Owner or Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params
+
+    // Check if user is owner or admin
+    const authResult = await requireOwnerOrAdmin(id)
+    if (!authResult.isAuthorized) {
+      return authResult.response
+    }
+
     const body = await request.json()
     const { name, image, role, password } = body
 
@@ -63,7 +78,11 @@ export async function PUT(
 
     if (name !== undefined) updateData.name = name.trim()
     if (image !== undefined) updateData.image = image
-    if (role !== undefined) updateData.role = role
+    
+    // Only admins can change roles
+    if (role !== undefined && authResult.isAdmin) {
+      updateData.role = role
+    }
 
     // Hash new password if provided
     if (password && password.length >= 6) {
@@ -97,12 +116,18 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete user
+// DELETE - Delete user (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Only admins can delete users
+    const authResult = await requireAdmin()
+    if (!authResult.isAdmin) {
+      return authResult.response
+    }
+
     const { id } = await params
     const usersCollection = await getCollection('users')
 

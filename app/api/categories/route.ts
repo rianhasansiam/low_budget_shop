@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
+import { requireAdmin } from "@/lib/auth";
 
-// GET - Fetch all categories
+// GET - Fetch all categories (Public)
 export async function GET() {
   try {
     const collection = await getCollection("categories");
@@ -21,9 +22,15 @@ export async function GET() {
   }
 }
 
-// POST - Add a new category
+// POST - Add a new category (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is admin
+    const authResult = await requireAdmin();
+    if (!authResult.isAdmin) {
+      return authResult.response;
+    }
+
     const body = await request.json();
 
     const category = {
