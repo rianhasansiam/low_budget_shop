@@ -178,7 +178,7 @@ export default function HeroCarousel() {
     return (
       <section className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-4">
-          <div className="w-full lg:w-2/3 h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="w-full lg:w-2/3 h-[200px] sm:h-[300px] md:h-[400px] lg:h-[450px] rounded-2xl bg-gray-200 animate-pulse flex items-center justify-center">
             <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
           </div>
           <div className="w-full lg:w-1/3">
@@ -205,7 +205,7 @@ export default function HeroCarousel() {
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Main Carousel */}
         <div
-          className="relative w-full lg:w-2/3 h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden group"
+          className="relative w-full lg:w-2/3 h-[200px] sm:h-[300px] md:h-[380px] lg:h-[450px] rounded-2xl overflow-hidden group"
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
         >

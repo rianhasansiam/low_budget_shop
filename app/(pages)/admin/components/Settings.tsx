@@ -70,6 +70,13 @@ interface Product {
   specialDiscount?: boolean
 }
 
+interface GalleryImage {
+  _id: string
+  image: string
+  caption: string
+  order: number
+}
+
 export default function Settings() {
   const [settings, setSettings] = useState<SiteSettings | null>(null)
   const [loading, setLoading] = useState(true)
@@ -93,6 +100,12 @@ export default function Settings() {
   const [productSearch, setProductSearch] = useState('')
   const [uploadingImage, setUploadingImage] = useState(false)
 
+  // Review Gallery State
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([])
+  const [galleryLoading, setGalleryLoading] = useState(true)
+  const [uploadingGalleryImage, setUploadingGalleryImage] = useState(false)
+  const [newGalleryCaption, setNewGalleryCaption] = useState('')
+
   // Auto-save debounce ref
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -101,6 +114,7 @@ export default function Settings() {
     fetchSettings()
     fetchHeroSlides()
     fetchProducts()
+    fetchGalleryImages()
   }, [])
 
   const fetchProducts = async () => {
@@ -154,6 +168,122 @@ export default function Settings() {
 
   // Get special discount products
   const specialDiscountProducts = allProducts.filter(p => p.specialDiscount)
+
+  // Fetch gallery images
+  const fetchGalleryImages = async () => {
+    try {
+      const response = await fetch('/api/review-gallery')
+      const data = await response.json()
+      if (data.success) {
+        setGalleryImages(data.data || [])
+      }
+    } catch (error) {
+      console.error('Error fetching gallery:', error)
+    } finally {
+      setGalleryLoading(false)
+    }
+  }
+
+  // Handle gallery image upload
+  const handleGalleryImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+
+    const file = files[0]
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      Swal.fire({ icon: 'error', title: 'Invalid File', text: 'Please upload an image file' })
+      return
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      Swal.fire({ icon: 'error', title: 'File Too Large', text: 'Image must be less than 5MB' })
+      return
+    }
+
+    setUploadingGalleryImage(true)
+    try {
+      // Convert to base64
+      const reader = new FileReader()
+      reader.onloadend = async () => {
+        const base64 = reader.result as string
+
+        // Upload to API
+        const response = await fetch('/api/review-gallery', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ 
+            image: base64, 
+            caption: newGalleryCaption 
+          })
+        })
+
+        const data = await response.json()
+        if (data.success) {
+          setGalleryImages(prev => [...prev, data.data])
+          setNewGalleryCaption('')
+          Swal.fire({
+            icon: 'success',
+            title: 'Image Added',
+            timer: 1500,
+            showConfirmButton: false
+          })
+        } else {
+          throw new Error(data.error)
+        }
+        setUploadingGalleryImage(false)
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error('Error uploading gallery image:', error)
+      Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to upload image' })
+      setUploadingGalleryImage(false)
+    }
+
+    // Reset input
+    e.target.value = ''
+  }
+
+  // Delete gallery image
+  const handleDeleteGalleryImage = async (imageId: string) => {
+    const result = await Swal.fire({
+      title: 'Delete Image?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Delete'
+    })
+
+    if (!result.isConfirmed) return
+
+    try {
+      const response = await fetch(`/api/review-gallery?id=${imageId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setGalleryImages(prev => prev.filter(img => img._id !== imageId))
+        Swal.fire({
+          icon: 'success',
+          title: 'Image Deleted',
+          timer: 1500,
+          showConfirmButton: false
+        })
+      } else {
+        throw new Error(data.error)
+      }
+    } catch (error) {
+      console.error('Error deleting gallery image:', error)
+      Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to delete image' })
+    }
+  }
 
   const fetchSettings = async () => {
     try {
@@ -889,6 +1019,101 @@ export default function Settings() {
               </div>
             </>
           )}
+        </div>
+      </div>
+
+      {/* Review Gallery Management */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center">
+              <ImageIcon className="w-5 h-5 text-sky-600" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Customer Review Gallery</h3>
+              <p className="text-sm text-gray-500">Add screenshots of customer reviews for the satisfaction section</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-6">
+          {/* Upload New Image */}
+          <div className="bg-gray-50 rounded-xl p-4 border-2 border-dashed border-gray-200">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <label className="flex-1 w-full">
+                <div className="flex items-center justify-center gap-3 py-4 cursor-pointer hover:bg-gray-100 rounded-lg transition-colors">
+                  {uploadingGalleryImage ? (
+                    <>
+                      <Loader2 className="w-6 h-6 animate-spin text-sky-500" />
+                      <span className="text-gray-600">Uploading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-6 h-6 text-sky-500" />
+                      <span className="text-gray-600">Click to upload review screenshot</span>
+                    </>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleGalleryImageUpload}
+                  className="hidden"
+                  disabled={uploadingGalleryImage}
+                />
+              </label>
+            </div>
+            <p className="text-xs text-gray-400 text-center mt-2">Max 5MB per image • PNG, JPG, JPEG</p>
+          </div>
+
+          {/* Gallery Grid */}
+          {galleryLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+            </div>
+          ) : galleryImages.length === 0 ? (
+            <div className="text-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+              <ImageIcon className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+              <p className="text-gray-500 text-sm">No review screenshots yet</p>
+              <p className="text-xs text-gray-400">Upload customer review screenshots to display in the gallery</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {galleryImages.map((img, index) => (
+                <div key={img._id} className="relative group">
+                  <div className="relative aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
+                    <Image
+                      src={img.image}
+                      alt={img.caption || `Review ${index + 1}`}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                      className="object-cover"
+                    />
+                    {/* Overlay on Hover */}
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <button
+                        onClick={() => handleDeleteGalleryImage(img._id)}
+                        className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                  {/* Order Badge */}
+                  <div className="absolute top-2 left-2 w-6 h-6 bg-white rounded-full shadow flex items-center justify-center text-xs font-bold text-gray-700">
+                    {index + 1}
+                  </div>
+                  {img.caption && (
+                    <p className="mt-2 text-xs text-gray-600 line-clamp-1">{img.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <p className="text-sm text-gray-500 bg-blue-50 border border-blue-100 rounded-lg p-3">
+            💡 <strong>Tip:</strong> Add screenshots of positive customer reviews from Facebook, Instagram, or other platforms to build trust with new customers.
+          </p>
         </div>
       </div>
 
