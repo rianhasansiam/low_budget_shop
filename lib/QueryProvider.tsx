@@ -22,9 +22,9 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       new QueryClient({
         defaultOptions: {
           queries: {
-            // Default cache settings (can be overridden per query)
-            staleTime: CACHE_TIMES.SEMI_STATIC.staleTime,
-            gcTime: CACHE_TIMES.SEMI_STATIC.gcTime,
+            // On-demand revalidation - data stays fresh until manually invalidated
+            staleTime: CACHE_TIMES.ON_DEMAND.staleTime,
+            gcTime: CACHE_TIMES.ON_DEMAND.gcTime,
             // Don't refetch on window focus - we handle cache invalidation manually
             refetchOnWindowFocus: false,
             // Retry failed requests 2 times

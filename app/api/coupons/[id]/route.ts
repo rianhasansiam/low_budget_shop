@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateCache, CACHE_TAGS } from "@/lib/cache/revalidate";
 
 // Helper to get the correct filter based on ID format
 const getIdFilter = (id: string) => {
@@ -95,6 +96,9 @@ export async function PUT(
     // Fetch updated coupon
     const updatedCoupon = await collection.findOne(getIdFilter(id));
 
+    // Revalidate coupons cache on successful update
+    revalidateCache(CACHE_TAGS.COUPONS);
+
     return NextResponse.json({
       success: true,
       message: "Coupon updated successfully",
@@ -132,6 +136,9 @@ export async function DELETE(
       );
     }
 
+    // Revalidate coupons cache on successful deletion
+    revalidateCache(CACHE_TAGS.COUPONS);
+
     return NextResponse.json({
       success: true,
       message: "Coupon deleted successfully"
@@ -159,7 +166,7 @@ export async function PATCH(
       const collection = await getCollection("coupons");
       const couponCode = id.toUpperCase().trim();
       
-      console.log('Validating coupon:', couponCode);
+      //console.log('Validating coupon:', couponCode);
       
       const coupon = await collection.findOne({ code: couponCode });
 
@@ -171,7 +178,7 @@ export async function PATCH(
         );
       }
 
-      console.log('Coupon found:', coupon);
+      //console.log('Coupon found:', coupon);
 
       // Check if coupon is active
       if (!coupon.isActive) {

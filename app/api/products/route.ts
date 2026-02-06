@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateProducts } from "@/lib/cache/revalidate";
 
 // GET - Fetch products with pagination, filtering, and caching (Public)
 export async function GET(request: NextRequest) {
@@ -26,12 +27,8 @@ export async function GET(request: NextRequest) {
 
     const products = await collection.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray();
 
-    // Return with cache headers (cache for 60 seconds, stale-while-revalidate for 5 minutes)
-    return NextResponse.json(products, {
-      headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
-      },
-    });
+    // Return without time-based cache - uses on-demand revalidation only
+    return NextResponse.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(
@@ -69,6 +66,9 @@ export async function POST(request: NextRequest) {
 
     const collection = await getCollection("allProducts");
     const result = await collection.insertOne(product);
+
+    // Revalidate product cache on successful creation
+    revalidateProducts();
 
     return NextResponse.json({
       success: true,

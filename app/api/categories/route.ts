@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateCategories } from "@/lib/cache/revalidate";
 
 // GET - Fetch all categories (Public)
 export async function GET() {
@@ -8,11 +9,8 @@ export async function GET() {
     const collection = await getCollection("categories");
     const categories = await collection.find({}).toArray();
 
-    return NextResponse.json(categories, {
-      headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-      },
-    });
+    // On-demand revalidation only
+    return NextResponse.json(categories);
   } catch (error) {
     console.error("Error fetching categories:", error);
     return NextResponse.json(
@@ -41,6 +39,9 @@ export async function POST(request: NextRequest) {
 
     const collection = await getCollection("categories");
     const result = await collection.insertOne(category);
+
+    // Revalidate category cache on successful creation
+    revalidateCategories();
 
     return NextResponse.json({
       success: true,

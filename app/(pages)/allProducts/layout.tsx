@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd";
 
 export const metadata: Metadata = {
   title: "All Products - Shop Tech Gadgets & Electronics",

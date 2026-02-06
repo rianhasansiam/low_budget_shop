@@ -5,7 +5,11 @@ import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Login | EngineersGadget",
-  description: "Sign in to your EngineersGadget account.",
+  description: "Sign in to your EngineersGadget account to access your orders, wishlist, and personalized shopping experience.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 function LoginFallback() {

@@ -14,7 +14,7 @@ import FilterSidebar from "./components/FilterSidebar";
 import type { Product } from "@/app/components/ProductCard";
 
 const MAX_PRICE = 500000;
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd";
 
 // Category icons mapping (fallback icons)
 const categoryIcons: Record<string, string> = {

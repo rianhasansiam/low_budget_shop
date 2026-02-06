@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { requireAuth, requireAdmin } from "@/lib/auth";
+import { revalidateOrders } from "@/lib/cache/revalidate";
 
 // GET - Fetch single order by ID (Owner or Admin only)
 export async function GET(
@@ -144,6 +145,9 @@ export async function PUT(
     // Fetch the updated order
     const updatedOrder = await collection.findOne({ _id: new ObjectId(id) });
 
+    // Revalidate orders cache on successful update (PUT)
+    revalidateOrders();
+
     return NextResponse.json({
       success: true,
       message: "Order updated successfully",
@@ -197,6 +201,9 @@ export async function PATCH(
     // Fetch the updated order
     const updatedOrder = await collection.findOne({ _id: new ObjectId(id) });
 
+    // Revalidate orders cache on successful update (PATCH)
+    revalidateOrders();
+
     return NextResponse.json({
       success: true,
       message: "Order updated successfully",
@@ -246,6 +253,9 @@ export async function DELETE(
     }
 
     await collection.deleteOne({ _id: new ObjectId(id) });
+
+    // Revalidate orders cache on successful deletion
+    revalidateOrders();
 
     return NextResponse.json({
       success: true,

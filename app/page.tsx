@@ -5,7 +5,7 @@ import AllProductsSection from "./components/AllProductsSection";
 import CustomerSatisfaction from "./components/CustomerSatisfaction";
 import CategoriesSection from "./components/CategoriesSection";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd";
 
 // SEO Metadata
 export const metadata: Metadata = {

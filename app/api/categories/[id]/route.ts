@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateCategories } from "@/lib/cache/revalidate";
 
 // GET - Fetch single category by ID (Public)
 export async function GET(
@@ -64,6 +65,9 @@ export async function PUT(
       );
     }
 
+    // Revalidate category cache on successful update
+    revalidateCategories();
+
     return NextResponse.json({
       success: true,
       message: "Category updated successfully",
@@ -99,6 +103,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Revalidate category cache on successful deletion
+    revalidateCategories();
 
     return NextResponse.json({
       success: true,

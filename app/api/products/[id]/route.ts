@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateProducts } from "@/lib/cache/revalidate";
 
 // Helper to get the correct filter based on ID format
 const getIdFilter = (id: string) => {
@@ -78,6 +79,9 @@ export async function PUT(
     // Fetch and return the updated product
     const updatedProduct = await collection.findOne(getIdFilter(id));
 
+    // Revalidate product cache on successful update
+    revalidateProducts();
+
     return NextResponse.json({
       success: true,
       message: "Product updated successfully",
@@ -114,6 +118,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Revalidate product cache on successful deletion
+    revalidateProducts();
 
     return NextResponse.json({
       success: true,

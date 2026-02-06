@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateHeroSlides } from "@/lib/cache/revalidate";
 
 export interface HeroSlide {
   _id?: string;
@@ -136,6 +137,9 @@ export async function POST(request: NextRequest) {
 
     const result = await collection.insertOne(newSlide);
 
+    // Revalidate hero slides cache on successful creation
+    revalidateHeroSlides();
+
     return NextResponse.json({
       success: true,
       data: { ...newSlide, _id: result.insertedId },
@@ -172,6 +176,9 @@ export async function PUT(request: NextRequest) {
       }));
 
       await collection.bulkWrite(bulkOps);
+
+      // Revalidate hero slides cache on successful reorder
+      revalidateHeroSlides();
 
       return NextResponse.json({
         success: true,

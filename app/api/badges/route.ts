@@ -27,11 +27,8 @@ export async function GET() {
       }
     ]).toArray();
 
-    return NextResponse.json(badges, {
-      headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-      },
-    });
+    // On-demand revalidation only
+    return NextResponse.json(badges);
   } catch (error) {
     console.error("Error fetching badges:", error);
     return NextResponse.json(

@@ -27,11 +27,8 @@ export async function GET() {
       }
     ]).toArray();
 
-    return NextResponse.json(colors, {
-      headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-      },
-    });
+    // On-demand revalidation only
+    return NextResponse.json(colors);
   } catch (error) {
     console.error("Error fetching colors:", error);
     return NextResponse.json(

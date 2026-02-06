@@ -5,7 +5,11 @@ import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Sign Up | EngineersGadget",
-  description: "Create a new EngineersGadget account.",
+  description: "Create your EngineersGadget account to start shopping premium tech gadgets with exclusive offers and fast delivery.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 function SignupFallback() {

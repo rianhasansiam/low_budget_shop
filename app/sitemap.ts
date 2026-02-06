@@ -9,34 +9,45 @@ function ensureProtocol(url: string): string {
   return url;
 }
 
-const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || 'https://engineersgadget.tech');
+const siteUrl = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || 'https://engineersgadget.com.bd');
+
+// Revalidate sitemap every 24 hours
+export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages
+  const currentDate = new Date();
+  
+  // Static pages with priority settings
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'daily',
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${siteUrl}/allProducts`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${siteUrl}/about`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${siteUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/reviews`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
     },
   ];
 

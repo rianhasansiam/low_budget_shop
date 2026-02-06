@@ -3,6 +3,7 @@ import { getCollection } from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 import bcrypt from 'bcryptjs'
 import { requireOwnerOrAdmin, requireAdmin } from '@/lib/auth'
+import { revalidateCache, CACHE_TAGS } from '@/lib/cache/revalidate'
 
 // Helper to get ID filter - always convert to ObjectId for valid IDs
 function getIdFilter(id: string): { _id: ObjectId } {
@@ -102,6 +103,9 @@ export async function PUT(
       )
     }
 
+    // Revalidate users cache on successful update
+    revalidateCache(CACHE_TAGS.USERS)
+
     return NextResponse.json({ 
       success: true, 
       message: 'User updated successfully',
@@ -139,6 +143,9 @@ export async function DELETE(
         { status: 404 }
       )
     }
+
+    // Revalidate users cache on successful deletion
+    revalidateCache(CACHE_TAGS.USERS)
 
     return NextResponse.json({ 
       success: true, 

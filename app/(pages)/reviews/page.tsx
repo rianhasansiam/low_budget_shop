@@ -74,6 +74,47 @@ export default function ReviewsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Structured Data for Reviews Page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Customer Review Gallery - EngineersGadget",
+            description: "Real screenshots and reviews from our valued customers at Engineers Gadget.",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd"}/reviews`,
+            mainEntity: {
+              "@type": "ItemList",
+              name: "Customer Reviews",
+              numberOfItems: galleryImages.length,
+              itemListOrder: "https://schema.org/ItemListOrderDescending",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Engineers Gadget",
+              url: process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd",
+            },
+            breadcrumb: {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Reviews",
+                  item: `${process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd"}/reviews`,
+                },
+              ],
+            },
+          }),
+        }}
+      />
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-sky-600 via-sky-500 to-cyan-500 relative overflow-hidden">
         {/* Background Pattern */}

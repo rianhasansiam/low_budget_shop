@@ -164,8 +164,8 @@ const Footer = () => {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'Engineers Gadget',
-            url: 'https://engineersgadget.tech',
-            logo: 'https://engineersgadget.tech/logo.png',
+            url: 'https://engineersgadget.com.bd',
+            logo: 'https://engineersgadget.com.bd/logo.png',
             sameAs: [
               'https://www.facebook.com/share/1CDT5uopnd/',
               'https://www.instagram.com/engineers_gadget?igsh=MTJia3RwN3NsNHRudw==',
@@ -243,14 +243,14 @@ const Footer = () => {
           {/* Bottom Section */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-3 sm:gap-0 mb-2">
             <p className="text-xs sm:text-sm text-center sm:text-left text-white/60">
-              Engineers Gadget © {new Date().getFullYear()} Made by{' '}
+              Engineers Gadget © {new Date().getFullYear()} Design and Developed by{' '}
               <Link
-                href="https://rianhasansiam.me"
+                href="https://www.byteblooper.com"
                 className="text-white font-medium hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Rian Hasan Siam
+                Byteblooper
               </Link>
               {', '}
               All rights reserved.

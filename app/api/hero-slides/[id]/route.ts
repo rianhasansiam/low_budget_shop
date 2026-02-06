@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateHeroSlides } from "@/lib/cache/revalidate";
 
 // GET - Fetch single slide (Public)
 export async function GET(
@@ -75,6 +76,9 @@ export async function PUT(
       );
     }
 
+    // Revalidate hero slides cache on successful update
+    revalidateHeroSlides();
+
     return NextResponse.json({
       success: true,
       data: result,
@@ -111,6 +115,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Revalidate hero slides cache on successful deletion
+    revalidateHeroSlides();
 
     return NextResponse.json({
       success: true,

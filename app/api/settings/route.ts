@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateSettings } from "@/lib/cache/revalidate";
 
 // Default settings
 const defaultSettings = {
@@ -93,6 +94,9 @@ export async function PUT(request: NextRequest) {
         returnDocument: "after" 
       }
     );
+
+    // Revalidate settings cache on successful update
+    revalidateSettings();
 
     return NextResponse.json({
       success: true,

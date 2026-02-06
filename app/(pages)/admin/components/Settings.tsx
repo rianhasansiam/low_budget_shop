@@ -316,7 +316,7 @@ export default function Settings() {
       })
       
       const data = await response.json()
-      console.log('Settings save response:', { status: response.status, data })
+     // console.log('Settings save response:', { status: response.status, data })
       
       if (!response.ok || !data.success) {
         throw new Error(data.error || `Failed to update settings (${response.status})`)

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCollection } from '@/lib/mongodb'
 import bcrypt from 'bcryptjs'
 import { requireAdmin } from '@/lib/auth'
+import { revalidateCache, CACHE_TAGS } from '@/lib/cache/revalidate'
 
 // GET - Fetch all users (Admin only)
 export async function GET() {
@@ -98,6 +99,9 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await usersCollection.insertOne(newUser)
+
+    // Revalidate users cache on successful creation
+    revalidateCache(CACHE_TAGS.USERS)
 
     // Return user without password - using destructuring to exclude password
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

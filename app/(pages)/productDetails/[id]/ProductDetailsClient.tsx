@@ -206,7 +206,7 @@ const ProductDetailsClient = ({ productId }: ProductDetailsClientProps) => {
           url: url
         })
       } catch (err) {
-        console.log('Share cancelled', err)
+       // console.log('Share cancelled', err)
       }
     } else {
       await navigator.clipboard.writeText(url)

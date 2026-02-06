@@ -1,5 +1,5 @@
 // Cache configuration for different data types
-// Data that changes frequently should have shorter cache times
+// On-demand revalidation only - no time-based expiration
 
 export const CACHE_KEYS = {
   PRODUCTS: "products",
@@ -11,48 +11,35 @@ export const CACHE_KEYS = {
   BADGES: "badges",
   HERO_SLIDES: "hero-slides",
   SETTINGS: "settings",
+  REVIEWS: "reviews",
 } as const;
 
 export type CacheKey = (typeof CACHE_KEYS)[keyof typeof CACHE_KEYS];
 
-// Cache times in milliseconds
+// Cache times - data stays fresh until explicitly invalidated
 export const CACHE_TIMES = {
-  // Static data - rarely changes (categories, colors, badges)
-  STATIC: {
-    staleTime: 30 * 60 * 1000, // 30 minutes
-    gcTime: 60 * 60 * 1000, // 1 hour
-  },
-  // Semi-static data - changes occasionally (products)
-  SEMI_STATIC: {
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 30 * 60 * 1000, // 30 minutes
-  },
-  // Dynamic data - changes frequently (orders, user data)
-  DYNAMIC: {
-    staleTime: 1 * 60 * 1000, // 1 minute
-    gcTime: 10 * 60 * 1000, // 10 minutes
-  },
-  // Real-time data - always fresh (cart, current user session)
-  REALTIME: {
-    staleTime: 0, // Always stale
-    gcTime: 5 * 60 * 1000, // 5 minutes
+  // On-demand only - never auto-stale, invalidate manually
+  ON_DEMAND: {
+    staleTime: Infinity, // Never stale until invalidated
+    gcTime: 60 * 60 * 1000, // Keep in memory for 1 hour
   },
 } as const;
 
-// Map cache keys to their cache times
-export const CACHE_CONFIG: Record<CacheKey, typeof CACHE_TIMES[keyof typeof CACHE_TIMES]> = {
-  [CACHE_KEYS.CATEGORIES]: CACHE_TIMES.STATIC,
-  [CACHE_KEYS.COLORS]: CACHE_TIMES.STATIC,
-  [CACHE_KEYS.BADGES]: CACHE_TIMES.STATIC,
-  [CACHE_KEYS.HERO_SLIDES]: CACHE_TIMES.STATIC,
-  [CACHE_KEYS.SETTINGS]: CACHE_TIMES.STATIC,
-  [CACHE_KEYS.PRODUCTS]: CACHE_TIMES.SEMI_STATIC,
-  [CACHE_KEYS.COUPONS]: CACHE_TIMES.SEMI_STATIC,
-  [CACHE_KEYS.USERS]: CACHE_TIMES.DYNAMIC,
-  [CACHE_KEYS.ORDERS]: CACHE_TIMES.DYNAMIC,
+// All cache keys use on-demand revalidation
+export const CACHE_CONFIG: Record<CacheKey, typeof CACHE_TIMES.ON_DEMAND> = {
+  [CACHE_KEYS.CATEGORIES]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.COLORS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.BADGES]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.HERO_SLIDES]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.SETTINGS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.PRODUCTS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.COUPONS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.USERS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.ORDERS]: CACHE_TIMES.ON_DEMAND,
+  [CACHE_KEYS.REVIEWS]: CACHE_TIMES.ON_DEMAND,
 };
 
 // Get cache config for a key
 export function getCacheConfig(key: string) {
-  return CACHE_CONFIG[key as CacheKey] || CACHE_TIMES.SEMI_STATIC;
+  return CACHE_CONFIG[key as CacheKey] || CACHE_TIMES.ON_DEMAND;
 }

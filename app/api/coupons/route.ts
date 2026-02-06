@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAdmin } from "@/lib/auth";
+import { revalidateCache, CACHE_TAGS } from "@/lib/cache/revalidate";
 
 // GET - Fetch all coupons (Admin only)
 export async function GET() {
@@ -75,6 +76,9 @@ export async function POST(request: NextRequest) {
     };
 
     const result = await collection.insertOne(coupon);
+
+    // Revalidate coupons cache on successful creation
+    revalidateCache(CACHE_TAGS.COUPONS);
 
     return NextResponse.json({
       success: true,

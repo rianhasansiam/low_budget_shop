@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAuth } from "@/lib/auth";
 import { ObjectId } from "mongodb";
+import { revalidateCache, CACHE_TAGS } from "@/lib/cache/revalidate";
 
 // GET - Fetch all reviews (with optional filters)
 export async function GET(request: NextRequest) {
@@ -153,6 +154,9 @@ export async function POST(request: NextRequest) {
     };
 
     const result = await reviewsCollection.insertOne(review);
+
+    // Revalidate reviews cache on successful creation
+    revalidateCache(CACHE_TAGS.REVIEWS);
 
     return NextResponse.json(
       {

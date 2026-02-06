@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import CategoryPageClient from "./CategoryPageClient";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.tech";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://engineersgadget.com.bd";
 
 // Generate dynamic metadata for SEO
 export async function generateMetadata({

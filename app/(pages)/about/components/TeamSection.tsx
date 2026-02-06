@@ -30,7 +30,7 @@ const team = [
     fallbackInitials: 'MK',
   },
 ];
-
+//asdasdasdasdafas
 const TeamSection = () => {
   return (
     <section className="py-16 lg:py-24 bg-white">

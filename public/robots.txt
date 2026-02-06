@@ -1,11 +1,24 @@
-# Robots.txt for EngineersGadget
+# Robots.txt for Engineers Gadget
 # https://www.robotstxt.org/robotstxt.html
+# Last updated: 2026
 
+# Default rules for all crawlers
 User-agent: *
 Allow: /
 
-# Disallow admin and private pages
+# Allow important public pages
+Allow: /
+Allow: /allProducts
+Allow: /allProducts$
+Allow: /category/
+Allow: /productDetails/
+Allow: /about
+Allow: /contact
+Allow: /reviews
+
+# Disallow private and admin pages
 Disallow: /admin
+Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
 Disallow: /login
@@ -14,17 +27,45 @@ Disallow: /profile
 Disallow: /orders
 Disallow: /checkout
 Disallow: /addToCart
+Disallow: /wilishlist
 
-# Allow search engines to crawl important pages
+# Disallow search result pages with parameters (avoid duplicate content)
+Disallow: /allProducts?*sort=
+Disallow: /allProducts?*page=
+Disallow: /*?sessionId=
+Disallow: /*?ref=
+
+# Google-specific rules
+User-agent: Googlebot
 Allow: /
-Allow: /allProducts
-Allow: /category/
-Allow: /about
-Allow: /contact
-Allow: /productDetails/
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.webp$
+Disallow: /api/
+Disallow: /admin/
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.webp$
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
 
 # Sitemap location
-Sitemap: https://engineersgadget.tech/sitemap.xml
+Sitemap: https://engineersgadget.com.bd/sitemap.xml
 
-# Crawl-delay (optional, for polite crawlers)
+# Crawl-delay (be polite to server resources)
 Crawl-delay: 1
+
+# Host directive (for Yandex)
+Host: https://engineersgadget.com.bd
+
+

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { requireAuth } from "@/lib/auth";
 import { ObjectId } from "mongodb";
+import { revalidateCache, CACHE_TAGS } from "@/lib/cache/revalidate";
 
 // GET - Fetch a specific review or all reviews for a product
 export async function GET(
@@ -126,6 +127,9 @@ export async function PUT(
       { returnDocument: "after" }
     );
 
+    // Revalidate reviews cache on successful update
+    revalidateCache(CACHE_TAGS.REVIEWS);
+
     return NextResponse.json({
       success: true,
       message: "Review updated successfully",
@@ -181,6 +185,9 @@ export async function DELETE(
     }
 
     await collection.deleteOne({ _id: new ObjectId(id) });
+
+    // Revalidate reviews cache on successful deletion
+    revalidateCache(CACHE_TAGS.REVIEWS);
 
     return NextResponse.json({
       success: true,

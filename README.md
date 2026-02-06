@@ -2,7 +2,7 @@
 
 A modern, full-featured e-commerce platform for tech gadgets, electronics, and engineering tools built with Next.js 16, React 19, and MongoDB.
 
-🌐 **Live Demo:** [engineersgadget.tech](https://engineersgadget.tech)
+🌐 **Live Demo:** [engineersgadget.com.bd](https://engineersgadget.com.bd)
 
 ![EngineersGadget E-Commerce](public/og-image.jpg)
 
@@ -92,7 +92,7 @@ A modern, full-featured e-commerce platform for tech gadgets, electronics, and e
    NEXT_PUBLIC_IMAGEBB_API_KEY=your_imgbb_api_key
 
    # Site URL
-   NEXT_PUBLIC_SITE_URL=https://engineersgadget.tech
+   NEXT_PUBLIC_SITE_URL=https://engineersgadget.com.bd
    NEXT_PUBLIC_BASE_URL=http://localhost:3000
    ```
 
